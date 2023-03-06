@@ -1,94 +1,61 @@
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
-#include <vector>
-class Perete{
-private:
-    int coor_x, coor_y;
+#include <chrono>
+#include <thread>
+
+#ifdef __linux__
+#include <X11/Xlib.h>
+#endif
+
+class SomeClass {
 public:
-    explicit Perete( int coor_x_=0, int coor_y_=0) : coor_x{coor_x_}, coor_y{coor_y_} {
-        std:: cout<<"constructor de initializere al clasei Perete\n";
-    }
-    Perete( const Perete& other ) : coor_x{other.coor_x}, coor_y{other.coor_y}{
-        std:: cout<<"constructor de copiere al clasei Perete\n";
-    }
-    Perete& operator=(const Perete& other) {
-        coor_x= other.coor_x;
-        coor_y= other.coor_y;
-        std :: cout<<"operator = de copiere al clasei Perete\n";
-        return *this;
-    }
-    ~Perete(){
-        std:: cout<<"Destructorul clasei Perete\n";
-    }
-
-    friend std :: ostream& operator<<(std::ostream& os, const Perete& perete){
-        os<<"La coordonatele x= "<<perete.coor_x<<" si y= "<<perete.coor_y<<" este un perete\n";
-        return os;
-    }
-
+    explicit SomeClass(int) {}
 };
 
-class Tabla{
-private:
-    int dimensiune;
-    std::vector <Perete> vec;
-public:
-    explicit Tabla( int dimensiune_=4, const std::vector <Perete>& vec_ = {Perete{1,2}, Perete{4,5}, Perete{1,3},Perete{6,5}} ) :
-            dimensiune{dimensiune_}, vec{vec_}{
-        std :: cout<<"Constructor de initializere al clasei Tabla\n";
-    }
-    Tabla( const Tabla& other ) : dimensiune{other.dimensiune}, vec{other.vec}{
-        std :: cout<<"Constructor de copiere al clasei Tabla\n";
-    }
-    Tabla& operator=(const Tabla& other) {
-        dimensiune= other.dimensiune;
-        vec = other.vec;
-        std :: cout<<"operator = de copiere al clasei Tabla\n";
-        return *this;
-    }
-    ~Tabla(){
-        std:: cout<<"Destructorul clasei Tabla\n";
-    }
-    friend std :: ostream& operator<<(std::ostream& os, const Tabla& tabla){
-        os << "Tabla are dimensiunea:" << tabla.dimensiune<< " \n";
-        return os;
-    }
-};
-
-
-class Joc{
-private:
-    int nivel;
-    int timer;
-public:
-    explicit Joc(  int nivel_=1, int timer_=0) :  nivel{nivel_}, timer(timer_){
-        std:: cout<<"constructor de initializare al clasei Joc\n";
-    }
-    Joc ( const Joc& other ) :  nivel{other.nivel}, timer(other.timer){
-        std:: cout<<"constructor de copiere al clasei Joc\n";
-    }
-    Joc& operator=(const Joc& other) {
-        nivel = other.nivel;
-        timer = other.timer;
-        std :: cout<<"operator = de copiere al clasei Joc\n";
-        return *this;
-    }
-    ~Joc(){
-        std:: cout<<"Destructorul clasei Joc\n";
-    }
-    friend std :: ostream& operator<<(std::ostream& os, const Joc& joc) {
-        os << "Nivelul jocului este " << joc.nivel << " iar timpul este: " << joc.timer << " \n";
-        return os;
-    }
-};
-
-
-int main()
-{
-    Tabla tabla;
-    Joc joc;
-    std:: cout<<tabla;
-    std:: cout<<joc;
-    return 0;
+SomeClass *getC() {
+    return new SomeClass{2};
 }
 
+int main() {
+    #ifdef __linux__
+    XInitThreads();
+    #endif
 
+    SomeClass *c = getC();
+    std::cout << c << "\n";
+    delete c;
+
+    sf::RenderWindow window;
+    // NOTE: sync with env variable APP_WINDOW from .github/workflows/cmake.yml:30
+    window.create(sf::VideoMode({800, 700}), "My Window", sf::Style::Default);
+    window.setVerticalSyncEnabled(true);
+    //window.setFramerateLimit(60);
+
+    while(window.isOpen()) {
+        sf::Event e;
+        while(window.pollEvent(e)) {
+            switch(e.type) {
+            case sf::Event::Closed:
+                window.close();
+                break;
+            case sf::Event::Resized:
+                std::cout << "New width: " << window.getSize().x << '\n'
+                          << "New height: " << window.getSize().y << '\n';
+                break;
+            case sf::Event::KeyPressed:
+                std::cout << "Received key " << (e.key.code == sf::Keyboard::X ? "X" : "(other)") << "\n";
+                break;
+            default:
+                break;
+            }
+        }
+        using namespace std::chrono_literals;
+        std::this_thread::sleep_for(300ms);
+
+        window.clear();
+        window.display();
+    }
+
+    return 0;
+}
