@@ -1,3 +1,8 @@
+# Maze Game
+
+Mi-am propus sa creez un joc, pe mai multe nivele, in care scopul este evadarea dintr-un labirint care devine din ce in ce mai mare pe masura ce jucatorul avanseaza.
+
+
 # OOP Template
 
 ### Tema 0
@@ -56,4 +61,3 @@
 
 - [SFML](https://github.com/SFML/SFML/tree/aa82ea132b9296a31922772027ad5d14c1fa381b) (Zlib)
 - adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
-#Maze Game
