@@ -1,6 +1,6 @@
 # Maze Game
 
-Mi-am propus sa creez un joc, pe mai multe nivele, in care scopul este evadarea dintr-un labirint care devine din ce in ce mai mare pe masura ce jucatorul avanseaza.
+Mi-am propus sa creez un joc, pe mai multe nivele, in care scopul este evadarea dintr-un labirint care devine din ce in ce mai mare si complicat pe masura ce jucatorul avanseaza.
 
 
 # OOP Template
