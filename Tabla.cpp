@@ -4,17 +4,39 @@
 
 #include "Tabla.h"
 #include <vector>
-//#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-//#include <SFML/Window.hpp>
-//#include <SFML/Audio.hpp>
-//#include <SFML/Network.hpp>
 using std::vector;
 ///Functii publice
 
+void Tabla::draw(sf::RenderWindow* window) {
+        int lenght=80,width=60;
+        for(int i=0; i<lenght; i++)
+        for( int j=0; j<width; j++ )
+           if ( matrice[i][j]==1 )
+                window->draw(matrice_de_desenat[i][j]);
+}
 
+
+void Tabla::initializare_tabla() {
+    int heigh=60, lenght=80;
+    matrice_de_desenat.resize(lenght);
+    for(int i=0; i<lenght/2; i++)
+    {     matrice_de_desenat[i].resize(heigh);
+        for( int j=0; j<heigh/2; j++ )
+            if ( matrice[i][j]==1 )
+            {
+                this -> matrice_de_desenat[i][j].setPosition(i*20.f,j*20.f);
+                this -> matrice_de_desenat[i][j].setSize(sf::Vector2f(20.f,20.f));
+                this -> matrice_de_desenat[i][j].setFillColor(sf::Color::Green);
+                this -> matrice_de_desenat[i][j].setOutlineColor(sf::Color::Black);
+                this -> matrice_de_desenat[i][j].setOutlineThickness(1.f);
+            }
+    }
+
+
+}
 void Tabla::generare_tabla() {
-    matrice.resize(80,vector<int>(60));
+    int lenght=80, width=60;
+    matrice.resize(lenght,vector<int>(width));
     for (int i=1;i<20;i++)
         matrice[i][1]=1;
     for(int j=1;j<29;j++)
@@ -41,6 +63,7 @@ void Tabla::generare_tabla() {
 Tabla::Tabla(int dimensiune_, const std::vector<Perete> &vec_) :
         dimensiune{dimensiune_}, vec{vec_}{
         this->generare_tabla();
+        this->initializare_tabla();
     std :: cout<<"Constructor de initializere al clasei Tabla\n";
 }
 
@@ -65,12 +88,3 @@ std::ostream &operator<<(std::ostream &os, const Tabla &tabla) {
     os << "Tabla are dimensiunea:" << tabla.dimensiune<< " \n";
     return os;
 }
-
-
-
-//void Tabla::stergere_tabla(mat) {
-//    for(int j=0;j<60;j++)
-//        delete []mat[j];
-//    delete[]mat[];
-//    mat=0;
-//}

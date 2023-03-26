@@ -17,12 +17,15 @@ class Tabla{
 private:
     int dimensiune;
     vector <Perete> vec{};
-    ///Functii private
-public:
-    ///Functii publice
     vector< vector<int>>matrice;
     vector< vector<sf::RectangleShape>> matrice_de_desenat;
+    ///Functii private
+public:
+
+    ///Functii publice
+    void draw(sf::RenderWindow* window);
     void generare_tabla();
+    void initializare_tabla();
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit Tabla( int dimensiune_=4, const std::vector <Perete>& vec_ = {Perete{1,2}, Perete{4,5}, Perete{1,3},Perete{6,5}} );
 
