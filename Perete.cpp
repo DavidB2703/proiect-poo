@@ -5,7 +5,7 @@
 #include "Perete.h"
 
 Perete::Perete(int coor_x_, int coor_y_) : coor_x{coor_x_}, coor_y{coor_y_} {
-    std:: cout<<"constructor de initializere al clasei Perete\n";
+    std:: cout<<"constructor de initializere al clasei Perete\n"<<coor_x_<<" "<<coor_y_;
 }
 
 Perete::Perete(const Perete &other) : coor_x{other.coor_x}, coor_y{other.coor_y}{

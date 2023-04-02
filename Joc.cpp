@@ -3,6 +3,7 @@
 //
 #include "Joc.h"
 #include <iostream>
+
 ///Functii Private
 
 void Joc::initializare_variabile() {
@@ -17,19 +18,12 @@ void Joc::initializare_fereastra() {
     this->window = new sf::RenderWindow(this ->videoMode,
                                         "Maze Game", sf::Style::Titlebar | sf::Style::Close );
     this -> window ->setFramerateLimit(144);
-}
-
-void Joc::initializare_jucator() {
-    this -> jucator.setPosition(0.f,20.f);
-    this -> jucator.setSize(sf::Vector2f(20.f,20.f));
-    this -> jucator.setFillColor(sf::Color::Blue);
-    this -> jucator.setOutlineColor(sf::Color::Green);
-    this -> jucator.setOutlineThickness(1.f);
 
 }
 
 
 ///Functii Publice
+
 
 void Joc::update() {
 
@@ -40,11 +34,8 @@ void Joc::update() {
 void Joc::render() {
 
     this->window->clear(sf::Color::Black);
-
     //Draw game
     tabla.draw(window);
-    this ->window ->draw(this->jucator);
-
     this ->window ->display();
 
 }
@@ -60,8 +51,24 @@ void Joc::pollEvents() {
                 this->window->close();
                 break;
             case sf:: Event:: KeyPressed:
+            {   int var=0;
                 if( this-> ev.key.code == sf::Keyboard::Escape )
                     this->window->close();
+                if ( this-> ev.key.code == sf::Keyboard::W )
+                    tabla.move_jucator('W',var);
+                else if ( this-> ev.key.code == sf::Keyboard::A )
+                    tabla.move_jucator('A',var);
+                else if ( this-> ev.key.code == sf::Keyboard::S )
+                    tabla.move_jucator('S',var);
+                else if ( this-> ev.key.code == sf::Keyboard::D )
+                    tabla.move_jucator('D',var);
+                if(var==1)
+                {
+                    Tabla tabla_noua;
+                    tabla=tabla_noua;
+                }
+            }
+
                 break;
             default: break;
         }
@@ -72,8 +79,6 @@ void Joc::pollEvents() {
 Joc::Joc(int nivel_, int timer_) :  nivel{nivel_}, timer(timer_){
     this->initializare_variabile();
     this->initializare_fereastra();
-    this -> initializare_jucator();
-
     std:: cout<<"constructor de initializare al clasei Joc\n";
 }
 Joc::~Joc() {
@@ -89,6 +94,8 @@ std::ostream &operator<<(std::ostream &os, const Joc &joc) {
 bool Joc::running() const {
     return this->window->isOpen();
 }
+
+
 
 
 

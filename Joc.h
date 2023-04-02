@@ -18,13 +18,10 @@ private:
     sf::Event ev{};
 
     ///Obiectele jocului
-    sf::RectangleShape jucator;
     Tabla tabla;
     ///Functii private
     void initializare_variabile();
     void initializare_fereastra();
-    void initializare_jucator();
-
 public:
     ///Functii
     void update();

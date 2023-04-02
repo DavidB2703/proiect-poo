@@ -16,14 +16,21 @@ using std::vector;
 class Tabla{
 private:
     int dimensiune;
-    vector <Perete> vec{};
+    vector <Perete> vec;
     vector< vector<int>>matrice;
     vector< vector<sf::RectangleShape>> matrice_de_desenat;
+    sf::RectangleShape jucator;
+    sf::RectangleShape final;
+    sf::Event event{};
     ///Functii private
 public:
 
     ///Functii publice
+    void move_jucator(char c, int& var);
     void draw(sf::RenderWindow* window);
+    void initializare_jucator(int x,int y);
+    void initializare_final(int x,int y);
+
     void generare_tabla();
     void initializare_tabla();
     ///Constructori/Deconstructori/Operator=/Operator<<

@@ -5,10 +5,12 @@
 #ifndef OOP_PERETE_H
 #define OOP_PERETE_H
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 class Perete{
 private:
-    int coor_x, coor_y;
+    int coor_x=rand()%30, coor_y=rand()%40;
     ///functii private
 
 public:
@@ -18,7 +20,7 @@ public:
 
     ///Constructori/Deconstructori/Operator=/Operator<<
 
-    explicit Perete( int coor_x_=0, int coor_y_=0);
+    explicit Perete( int coor_x_, int coor_y_);
     Perete( const Perete& other );
     Perete& operator=(const Perete& other);
     ~Perete();
