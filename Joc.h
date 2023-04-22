@@ -6,11 +6,11 @@
 #define OOP_JOC_H
 #include <iostream>
 #include "Tabla.h"
-class Joc{
+#include "Interfata_joc.h"
+class Joc : public Interfata_joc {
 private:
     ///Variabile
-    int nivel=1;
-    int timer;
+
     ///Fereastra
 
     sf::RenderWindow* window{};
@@ -24,11 +24,11 @@ private:
     void initializare_fereastra();
 public:
     ///Functii
-    void update();
-    void render();
-    void pollEvents();
+    void update() override;
+    void render() override;
+    void pollEvents() override;
     ///Constructori/Deconstructori/Operator=/Operator<<
-    explicit Joc(  int nivel_=1, int timer_=0);
+    explicit Joc();
     ~Joc();
     friend std :: ostream& operator<<(std::ostream& os, const Joc& joc);
     ///Accesors

@@ -68,7 +68,6 @@ void Joc::pollEvents() {
                     tabla=tabla_noua;
                 }
             }
-
                 break;
             default: break;
         }
@@ -76,7 +75,7 @@ void Joc::pollEvents() {
 
 }
 ///Constructori/Deconstructori/Operator=/Operator<<
-Joc::Joc(int nivel_, int timer_) :  nivel{nivel_}, timer(timer_){
+Joc::Joc()   {
     this->initializare_variabile();
     this->initializare_fereastra();
     std:: cout<<"constructor de initializare al clasei Joc\n";
@@ -87,7 +86,7 @@ Joc::~Joc() {
 }
 
 std::ostream &operator<<(std::ostream &os, const Joc &joc) {
-    os << "Nivelul jocului este " << joc.nivel << " iar timpul este: " << joc.timer << " \n";
+    os << "Nivelul jocului este "<< " iar timpul este: " <<" \n";
     return os;
 }
 ///Accessors

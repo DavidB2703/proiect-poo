@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <iostream>
 using std::vector;
 ///Functii publice
 
@@ -117,14 +118,14 @@ void Tabla::generare_tabla() {
 
 
 ///Constructori/Deconstructori/Operator=/Operator<<
-Tabla::Tabla(int dimensiune_, const std::vector<Perete> &vec_) :
-        dimensiune{dimensiune_}, vec{vec_}{
+Tabla::Tabla(int dimensiune_) :
+        dimensiune{dimensiune_}{
         this->generare_tabla();
         this->initializare_tabla();
     std :: cout<<"Constructor de initializere al clasei Tabla\n";
 }
 
-[[maybe_unused]] Tabla::Tabla(const Tabla &other) : dimensiune{other.dimensiune}, vec{other.vec}{
+[[maybe_unused]] Tabla::Tabla(const Tabla &other) : dimensiune{other.dimensiune}{
     this->generare_tabla();
     std :: cout<<"Constructor de copiere al clasei Tabla\n";
 
@@ -132,7 +133,6 @@ Tabla::Tabla(int dimensiune_, const std::vector<Perete> &vec_) :
 
 Tabla &Tabla::operator=(const Tabla &other) {
     dimensiune= other.dimensiune;
-    vec = other.vec;
     matrice=other.matrice;
     matrice_de_desenat=other.matrice_de_desenat;
     jucator=other.jucator;

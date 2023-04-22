@@ -4,7 +4,6 @@
 
 #ifndef OOP_TABLA_H
 #define OOP_TABLA_H
-#include "Perete.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -16,7 +15,6 @@ using std::vector;
 class Tabla{
 private:
     int dimensiune;
-    vector <Perete> vec;
     vector< vector<int>>matrice;
     vector< vector<sf::RectangleShape>> matrice_de_desenat;
     sf::RectangleShape jucator;
@@ -24,7 +22,6 @@ private:
     sf::Event event{};
     ///Functii private
 public:
-
     ///Functii publice
     void move_jucator(char c, int& var);
     void draw(sf::RenderWindow* window);
@@ -34,7 +31,7 @@ public:
     void generare_tabla();
     void initializare_tabla();
     ///Constructori/Deconstructori/Operator=/Operator<<
-    explicit Tabla( int dimensiune_=4, const std::vector <Perete>& vec_ = {Perete{1,2}, Perete{4,5}, Perete{1,3},Perete{6,5}} );
+    explicit Tabla( int dimensiune_=4);
 
     [[maybe_unused]] Tabla( const Tabla& other );
     Tabla& operator=(const Tabla& other);

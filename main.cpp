@@ -1,15 +1,14 @@
-
-#include "Joc.h"
+#include "Meniu.h"
 
 int main()
 {
-        //Initializare Joc
-        Joc joc;
-        //game loop
-        while(joc.running())
+   // Interfata_joc joc;
+    //meniu
+    Meniu meniu;
+        while(meniu.running())
         {
-           joc.update();
-           joc.render();
+            meniu.update();
+            meniu.render();
         }
     return 0;
 }
