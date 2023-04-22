@@ -18,7 +18,7 @@
 
 class eroare_falling_blocks : public eroare_aplicatie {
 public:
-    explicit eroare_falling_blocks(std::string mesaj) :
+    explicit eroare_falling_blocks(const std::string& mesaj) :
             eroare_aplicatie( mesaj) {}
 };
 class FallingBlocks: public Interfata_joc {

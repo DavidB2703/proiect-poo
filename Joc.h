@@ -30,7 +30,6 @@ public:
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit Joc();
     ~Joc();
-    friend std :: ostream& operator<<(std::ostream& os, const Joc& joc);
     ///Accesors
     bool running() const;
 };

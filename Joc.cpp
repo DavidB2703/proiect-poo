@@ -85,10 +85,7 @@ Joc::~Joc() {
     std:: cout<<"Destructorul clasei Joc\n";
 }
 
-std::ostream &operator<<(std::ostream &os, const Joc &joc) {
-    os << "Nivelul jocului este "<< " iar timpul este: " <<" \n";
-    return os;
-}
+
 ///Accessors
 bool Joc::running() const {
     return this->window->isOpen();
