@@ -126,6 +126,7 @@ void Meniu::pollEvents() {
                         }
 
                     }
+                    break;
                 }
                 case sf::Event::MouseMoved: {
                     // Check if the mouse is within the bounds of the rectangle
@@ -145,10 +146,8 @@ void Meniu::pollEvents() {
                     } else {
                         FallingBlocks.setFillColor(sf::Color::Green);
                     }
-
+                break;
                 }
-
-                    break;
                 default:
                     break;
             }
