@@ -8,7 +8,7 @@
 void FallingBlocks::draw() {
     this->window->draw(enemy);
     srand(time(nullptr));
-    enemy.move(0.f,rand()%5);
+    enemy.move(0.f,float(rand()%5));
 }
 void FallingBlocks::initializare_inamici() {
     int x_pos;
@@ -45,15 +45,22 @@ void FallingBlocks::update() {
 }
 
 void FallingBlocks::render() {
+    if(this->window!= nullptr)
+    {
+        this->window->clear(sf::Color::Black);
+        ///draw game
+        draw();
+        this ->window ->display();
+    }
 
-    this->window->clear(sf::Color::Black);
-    ///draw game
-    draw();
-    this ->window ->display();
+
 
 }
 
 void FallingBlocks::pollEvents() {
+    if(this->window!= nullptr)
+    {
+
 
     while (this -> window ->pollEvent(this ->ev))
     {
@@ -103,10 +110,13 @@ void FallingBlocks::pollEvents() {
                     // Reset the color of the rectangle when the mouse is not over it
                     enemy.setFillColor(sf::Color::Green);
                 }
+
             }
+            break;
 
         }
 
+    }
     }
 }
 
@@ -125,7 +135,9 @@ FallingBlocks::~FallingBlocks() {
 }
 ///Accesors
 bool FallingBlocks::running() {
-     return this->window->isOpen();
+    if(this->window!= nullptr)
+        return this->window->isOpen();
+    return false;
 }
 
 
