@@ -47,18 +47,27 @@ void Meniu::update() {
 }
 
 void Meniu::render() {
-    this->window->clear(sf::Color::Black);
-    //Draw Meniu
-    this->draw();
-    this ->window ->display();
+    if(this->window != nullptr)
+    {
+        this->window->clear(sf::Color::Black);
+        //Draw Meniu
+        this->draw();
+        this ->window ->display();
+    }
+
+
 }
 
 void Meniu::draw() {
+    if(this->window != nullptr)
+    {
         this->window->draw(EndlessMaze);
         this->window->draw(FallingBlocks);
         this->window->draw(titlu);
         this->window->draw(maze);
         this->window->draw(blocks);
+    }
+
 }
 
 void Meniu::initializare_casuta() {
@@ -76,83 +85,73 @@ void Meniu::initializare_casuta() {
 }
 
 void Meniu::pollEvents() {
-    while (this -> window ->pollEvent(this ->ev))
-    {
-        switch (this -> ev.type)
-        {
+    if(this->window != nullptr) {
 
-            case sf::Event::Closed:
-                this->window->close();
-                break;
-            case sf:: Event:: KeyPressed:
-            {
-                if( this-> ev.key.code == sf::Keyboard::Escape )
+
+        while (this->window->pollEvent(this->ev)) {
+            switch (this->ev.type) {
+
+                case sf::Event::Closed:
                     this->window->close();
-            }
-            case sf::Event::MouseButtonPressed:
-            {
-                sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
-                sf::FloatRect rectBounds2= FallingBlocks.getGlobalBounds();
-                sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-                if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-                {
-                    // Do something when the rectangle is clicked
-                    Joc joc;
-                    Interfata_joc* pointer_joc=&joc;
-                    //game loop
-                    while(joc.running())
-                    {
-                        pointer_joc->update();
-                        pointer_joc->render();
-                    }
+                    break;
+                case sf::Event::KeyPressed: {
+                    if (this->ev.key.code == sf::Keyboard::Escape)
+                        this->window->close();
                 }
-                if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-                {
-                    try{
-                        class FallingBlocks fallingblocks;
-                        Interfata_joc* pointer_joc=&fallingblocks;
+                case sf::Event::MouseButtonPressed: {
+                    sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
+                    sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+                    if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        // Do something when the rectangle is clicked
+                        Joc joc;
+                        Interfata_joc *pointer_joc = &joc;
                         //game loop
-                        while(fallingblocks.running())
-                        {
+                        while (joc.running()) {
                             pointer_joc->update();
                             pointer_joc->render();
                         }
-                    } catch( eroare_falling_blocks& err ){
-                        std:: cout<<"Eroarea este: "<<err.what()<<"\n";
+                    }
+                    if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        try {
+                            class FallingBlocks fallingblocks;
+                            Interfata_joc *pointer_joc = &fallingblocks;
+                            //game loop
+                            while (fallingblocks.running()) {
+                                pointer_joc->update();
+                                pointer_joc->render();
+                            }
+                        } catch (eroare_falling_blocks &err) {
+                            std::cout << "Eroarea este: " << err.what() << "\n";
+                        }
+
+                    }
+                }
+                case sf::Event::MouseMoved: {
+                    // Check if the mouse is within the bounds of the rectangle
+                    sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
+                    sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
+
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+                    if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        // Do something when the mouse is over the rectangle
+                        EndlessMaze.setFillColor(sf::Color::Blue);
+                    } else {
+                        // Reset the color of the rectangle when the mouse is not over it
+                        EndlessMaze.setFillColor(sf::Color::Green);
+                    }
+                    if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        FallingBlocks.setFillColor(sf::Color::Blue);
+                    } else {
+                        FallingBlocks.setFillColor(sf::Color::Green);
                     }
 
                 }
+
+                    break;
+                default:
+                    break;
             }
-            case sf::Event::MouseMoved:
-            {
-                // Check if the mouse is within the bounds of the rectangle
-                sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
-                sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
-
-                sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-                if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-                {
-                    // Do something when the mouse is over the rectangle
-                    EndlessMaze.setFillColor(sf::Color::Blue);
-                }
-                else
-                {
-                    // Reset the color of the rectangle when the mouse is not over it
-                    EndlessMaze.setFillColor(sf::Color::Green);
-                }
-                if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-                {
-                    FallingBlocks.setFillColor(sf::Color::Blue);
-                }
-                else
-                {
-                    FallingBlocks.setFillColor(sf::Color::Green);
-                }
-
-            }
-
-                break;
-            default: break;
         }
     }
 }
@@ -171,5 +170,7 @@ Meniu::~Meniu() {
 }
 
 bool Meniu::running() const {
-    return this->window->isOpen();
+    if(this->window != nullptr)
+        return this->window->isOpen();
+    return false;
 }
