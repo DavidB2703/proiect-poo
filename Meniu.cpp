@@ -97,7 +97,7 @@ void Meniu::pollEvents() {
                 case sf::Event::KeyPressed: {
                     if (this->ev.key.code == sf::Keyboard::Escape)
                         this->window->close();
-                }
+                }break;
                 case sf::Event::MouseButtonPressed: {
                     sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
                     sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();

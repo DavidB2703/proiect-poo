@@ -74,8 +74,7 @@ void FallingBlocks::pollEvents() {
             {
                 if( this-> ev.key.code == sf::Keyboard::Escape )
                     this->window->close();
-            }
-                break;
+            }break;
             case sf::Event::MouseButtonPressed:
             {
                 sf::FloatRect rectBounds = enemy.getGlobalBounds();
