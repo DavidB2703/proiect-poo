@@ -126,8 +126,8 @@ void Meniu::pollEvents() {
                         }
 
                     }
-                    break;
-                }
+
+                }break;
                 case sf::Event::MouseMoved: {
                     // Check if the mouse is within the bounds of the rectangle
                     sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
@@ -146,8 +146,8 @@ void Meniu::pollEvents() {
                     } else {
                         FallingBlocks.setFillColor(sf::Color::Green);
                     }
-                break;
-                }
+
+                }break;
                 default:
                     break;
             }
