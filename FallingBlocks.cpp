@@ -76,7 +76,6 @@ void FallingBlocks::pollEvents() {
                     this->window->close();
             }
                 break;
-            default: break;
             case sf::Event::MouseButtonPressed:
             {
                 sf::FloatRect rectBounds = enemy.getGlobalBounds();
@@ -93,7 +92,7 @@ void FallingBlocks::pollEvents() {
                 }
 
 
-            }
+            }break;
             case sf::Event::MouseMoved:
             {
                 // Check if the mouse is within the bounds of the rectangle
@@ -111,9 +110,8 @@ void FallingBlocks::pollEvents() {
                     enemy.setFillColor(sf::Color::Green);
                 }
 
-            }
-            break;
-
+            }break;
+            default: break;
         }
 
     }
