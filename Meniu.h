@@ -24,10 +24,10 @@ private:
     sf::Event ev{};
     sf::RectangleShape EndlessMaze;
     sf::RectangleShape FallingBlocks;
+    ///Functii private
     void initializare_text();
     void initializare_variabile();
     void initializare_fereastra();
-    //void initializare_text();
 public:
     ///Functii publice
     void update() override;
@@ -39,7 +39,6 @@ public:
     explicit Meniu();
     ~Meniu();
     bool running() const;
-
 };
 
 

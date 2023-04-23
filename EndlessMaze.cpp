@@ -1,18 +1,18 @@
 //
 // Created by david on 3/12/2023.
 //
-#include "Joc.h"
+#include "EndlessMaze.h"
 #include <iostream>
 
 ///Functii Private
 
-void Joc::initializare_variabile() {
+void EndlessMaze::initializare_variabile() {
 
     this->window = nullptr;
 
 }
 
-void Joc::initializare_fereastra() {
+void EndlessMaze::initializare_fereastra() {
     this ->videoMode.height=600;
     this ->videoMode.width=800;
     this->window = new sf::RenderWindow(this ->videoMode,
@@ -25,13 +25,13 @@ void Joc::initializare_fereastra() {
 ///Functii Publice
 
 
-void Joc::update() {
+void EndlessMaze::update() {
 
     this -> pollEvents();
 
 }
 
-void Joc::render() {
+void EndlessMaze::render() {
 
     this->window->clear(sf::Color::Black);
     //Draw game
@@ -40,7 +40,7 @@ void Joc::render() {
 
 }
 
-void Joc::pollEvents() {
+void EndlessMaze::pollEvents() {
 
     while (this -> window ->pollEvent(this ->ev))
     {
@@ -62,11 +62,13 @@ void Joc::pollEvents() {
                     tabla.move_jucator('S',var);
                 else if ( this-> ev.key.code == sf::Keyboard::D )
                     tabla.move_jucator('D',var);
-                if(var==1)
-                {
+                if(var==1) {
+
                     Tabla tabla_noua;
-                    tabla=tabla_noua;
+                    tabla = tabla_noua;
                 }
+
+
             }
                 break;
             default: break;
@@ -75,19 +77,19 @@ void Joc::pollEvents() {
 
 }
 ///Constructori/Deconstructori/Operator=/Operator<<
-Joc::Joc()   {
+EndlessMaze::EndlessMaze()   {
     this->initializare_variabile();
     this->initializare_fereastra();
-    std:: cout<<"constructor de initializare al clasei Joc\n";
+    std:: cout<<"constructor de initializare al clasei EndlessMaze\n";
 }
-Joc::~Joc() {
+EndlessMaze::~EndlessMaze() {
     delete this->window;
-    std:: cout<<"Destructorul clasei Joc\n";
+    std:: cout<<"Destructorul clasei EndlessMaze\n";
 }
 
 
 ///Accessors
-bool Joc::running() const {
+bool EndlessMaze::running() const {
     return this->window->isOpen();
 }
 

@@ -12,7 +12,7 @@ void FallingBlocks::draw() {
 }
 void FallingBlocks::initializare_inamici() {
     int x_pos;
-    x_pos=rand()%800;
+    x_pos=rand()%700;
     this -> enemy.setPosition(float(x_pos), 0.f);
     this -> enemy.setSize(sf::Vector2f(100.f, 100.f));
     this -> enemy.setFillColor(sf::Color::Green);

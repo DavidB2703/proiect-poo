@@ -10,11 +10,17 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include "Interfata_joc.h"
 using std::vector;
+
+class eroare_endless_maze : public eroare_aplicatie {
+public:
+    explicit eroare_endless_maze(const std::string& mesaj) :
+            eroare_aplicatie( mesaj) {}
+};
 
 class Tabla{
 private:
-    int dimensiune;
     vector< vector<int>>matrice;
     vector< vector<sf::RectangleShape>> matrice_de_desenat;
     sf::RectangleShape jucator;
@@ -31,12 +37,10 @@ public:
     void generare_tabla();
     void initializare_tabla();
     ///Constructori/Deconstructori/Operator=/Operator<<
-    explicit Tabla( int dimensiune_=4);
+    explicit Tabla();
 
-    [[maybe_unused]] Tabla( const Tabla& other );
     Tabla& operator=(const Tabla& other);
     ~Tabla();
-    friend std :: ostream& operator<<(std::ostream& os, const Tabla& tabla);
 };
 
 #endif //OOP_TABLA_H

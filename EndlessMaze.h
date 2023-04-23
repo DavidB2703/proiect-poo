@@ -2,12 +2,15 @@
 // Created by david on 3/12/2023.
 //
 
-#ifndef OOP_JOC_H
-#define OOP_JOC_H
+#ifndef OOP_ENDLESSMAZE_H
+#define OOP_ENDLESSMAZE_H
 #include <iostream>
 #include "Tabla.h"
 #include "Interfata_joc.h"
-class Joc : public Interfata_joc {
+
+
+
+class EndlessMaze : public Interfata_joc {
 private:
     ///Variabile
 
@@ -28,10 +31,10 @@ public:
     void render() override;
     void pollEvents() override;
     ///Constructori/Deconstructori/Operator=/Operator<<
-    explicit Joc();
-    ~Joc();
+    explicit EndlessMaze();
+    ~EndlessMaze();
     ///Accesors
     bool running() const;
 };
 
-#endif //OOP_JOC_H
+#endif //OOP_ENDLESSMAZE_H

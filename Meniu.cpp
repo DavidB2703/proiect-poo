@@ -3,7 +3,7 @@
 //
 
 #include "Meniu.h"
-#include "Joc.h"
+#include "EndlessMaze.h"
 #include "Interfata_joc.h"
 #include "FallingBlocks.h"
 ///functii private
@@ -104,22 +104,24 @@ void Meniu::pollEvents() {
                     sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
                     if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                         // Do something when the rectangle is clicked
-                        Joc joc;
-                        Interfata_joc *pointer_joc = &joc;
+
+                        Interfata_joc* InterfataPtr = new class EndlessMaze();
+                        auto* MazePtr = dynamic_cast<class EndlessMaze*>(InterfataPtr);
+
                         //game loop
-                        while (joc.running()) {
-                            pointer_joc->update();
-                            pointer_joc->render();
+                        while (MazePtr->running()) {
+                            MazePtr->update();
+                            MazePtr->render();
                         }
                     }
                     if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                         try {
-                            class FallingBlocks fallingblocks;
-                            Interfata_joc *pointer_joc = &fallingblocks;
+                            Interfata_joc* InterfataPtr = new class FallingBlocks();
+                            auto* FallingBlocksPtr = dynamic_cast<class FallingBlocks*>(InterfataPtr);
                             //game loop
-                            while (fallingblocks.running()) {
-                                pointer_joc->update();
-                                pointer_joc->render();
+                            while (FallingBlocksPtr->running()) {
+                                FallingBlocksPtr->update();
+                                FallingBlocksPtr->render();
                             }
                         } catch (eroare_falling_blocks &err) {
                             std::cout << "Eroarea este: " << err.what() << "\n";

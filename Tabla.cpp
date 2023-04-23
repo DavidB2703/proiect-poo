@@ -118,21 +118,16 @@ void Tabla::generare_tabla() {
 
 
 ///Constructori/Deconstructori/Operator=/Operator<<
-Tabla::Tabla(int dimensiune_) :
-        dimensiune{dimensiune_}{
+Tabla::Tabla()
+        {
         this->generare_tabla();
         this->initializare_tabla();
     std :: cout<<"Constructor de initializere al clasei Tabla\n";
 }
 
-[[maybe_unused]] Tabla::Tabla(const Tabla &other) : dimensiune{other.dimensiune}{
-    this->generare_tabla();
-    std :: cout<<"Constructor de copiere al clasei Tabla\n";
 
-}
 
 Tabla &Tabla::operator=(const Tabla &other) {
-    dimensiune= other.dimensiune;
     matrice=other.matrice;
     matrice_de_desenat=other.matrice_de_desenat;
     jucator=other.jucator;
@@ -143,14 +138,9 @@ Tabla &Tabla::operator=(const Tabla &other) {
 }
 
 Tabla::~Tabla() {
+    //throw eroare_endless_maze("Eroare la generarea unui nou pattern");
     std:: cout<<"Destructorul clasei Tabla\n";
 }
-
-std::ostream &operator<<(std::ostream &os, const Tabla &tabla) {
-    os << "Tabla are dimensiunea:" << tabla.dimensiune<< " \n";
-    return os;
-}
-
 
 
 
