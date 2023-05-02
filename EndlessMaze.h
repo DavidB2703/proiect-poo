@@ -19,7 +19,6 @@ private:
     sf::RenderWindow* window{};
     sf::VideoMode videoMode;
     sf::Event ev{};
-
     ///Obiectele jocului
     Tabla tabla;
     ///Functii private
@@ -34,7 +33,7 @@ public:
     explicit EndlessMaze();
     ~EndlessMaze();
     ///Accesors
-    bool running() const;
+    bool running() override;
 };
 
 #endif //OOP_ENDLESSMAZE_H

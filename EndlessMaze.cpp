@@ -6,10 +6,11 @@
 
 ///Functii Private
 
+
+
 void EndlessMaze::initializare_variabile() {
 
     this->window = nullptr;
-
 }
 
 void EndlessMaze::initializare_fereastra() {
@@ -48,24 +49,30 @@ void EndlessMaze::pollEvents() {
         {
 
             case sf::Event::Closed:
+            {
                 this->window->close();
+                Tabla::afisare_nr_table();
+            }
                 break;
             case sf:: Event:: KeyPressed:
             {   int var=0;
                 if( this-> ev.key.code == sf::Keyboard::Escape )
-                    this->window->close();
+                    this->window->close(), Tabla::afisare_nr_table(), Tabla::afisare_mutari();
                 if ( this-> ev.key.code == sf::Keyboard::W )
-                    tabla.move_jucator('W',var);
+                    tabla.move_jucator('W',var), Tabla::numarare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::A )
-                    tabla.move_jucator('A',var);
+                    tabla.move_jucator('A',var), Tabla::numarare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::S )
-                    tabla.move_jucator('S',var);
+                    tabla.move_jucator('S',var), Tabla::numarare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::D )
-                    tabla.move_jucator('D',var);
+                    tabla.move_jucator('D',var), Tabla::numarare_mutari();
                 if(var==1) {
 
                     Tabla tabla_noua;
+                    Tabla::numarare_table();
+                    Tabla::afisare_mutari();
                     tabla = tabla_noua;
+
                 }
 
 
@@ -89,9 +96,11 @@ EndlessMaze::~EndlessMaze() {
 
 
 ///Accessors
-bool EndlessMaze::running() const {
+bool EndlessMaze::running()  {
     return this->window->isOpen();
 }
+
+
 
 
 

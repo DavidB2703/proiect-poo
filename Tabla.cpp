@@ -10,21 +10,45 @@
 using std::vector;
 ///Functii publice
 
+void Tabla::numarare_mutari() {
+    numar_mutari++;
+}
+void Tabla::afisare_mutari() {
+    std::cout<<"Numarul de mutari facute este: "<< numar_mutari <<"\n";
+}
+
+void Tabla::afisare_nr_table() {
+    std::cout<<"Numarul de labirinturi parcurse este: "<<ct_tabla<<"\n";
+}
+
+
+void Tabla::numarare_table() {
+    ct_tabla++;
+}
+
+
 void Tabla::move_jucator(char c,int& var) {
     sf::Vector2f position = jucator.getPosition();
     int x=int(position.x)/20, y=int(position.y)/20;
     if (c=='W')
         if(matrice[x][y-1] !=0)
         jucator.move(0.f,-20.f);
+        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
     if (c=='A' )
         if(matrice[x-1][y] !=0)
         jucator.move(-20.f,0.f);
+        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+
     if (c=='S')
         if(matrice[x][y+1] !=0)
         jucator.move(0.f,20.f);
+        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+
     if (c=='D')
         if(matrice[x+1][y]!=0)
         jucator.move(20.f,0.f);
+        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+
     sf::Vector2f position_final=final.getPosition();
     sf::Vector2f position1 = jucator.getPosition();
     if( position1.x==position_final.x and position1.y==position_final.y )
@@ -133,14 +157,18 @@ Tabla &Tabla::operator=(const Tabla &other) {
     jucator=other.jucator;
     final=other.final;
     event=other.event;
-    std :: cout<<"operator = de copiere al clasei Tabla\n";
     return *this;
 }
 
 Tabla::~Tabla() {
-    //throw eroare_endless_maze("Eroare la generarea unui nou pattern");
     std:: cout<<"Destructorul clasei Tabla\n";
 }
+
+
+
+
+
+
 
 
 

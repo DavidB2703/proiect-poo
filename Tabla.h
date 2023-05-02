@@ -26,9 +26,15 @@ private:
     sf::RectangleShape jucator;
     sf::RectangleShape final;
     sf::Event event{};
+    static int ct_tabla;
+    static int numar_mutari;
     ///Functii private
 public:
     ///Functii publice
+    static void numarare_mutari();
+    static void afisare_mutari();
+    static void numarare_table();
+    static void afisare_nr_table();
     void move_jucator(char c, int& var);
     void draw(sf::RenderWindow* window);
     void initializare_jucator(int x,int y);

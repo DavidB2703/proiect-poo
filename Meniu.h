@@ -19,11 +19,13 @@ private:
     sf::Text titlu;
     sf::Text maze;
     sf::Text blocks;
+    sf::Text guess;
     sf::RenderWindow* window{};
     sf::VideoMode videoMode;
     sf::Event ev{};
     sf::RectangleShape EndlessMaze;
     sf::RectangleShape FallingBlocks;
+    sf::RectangleShape GuessTheNumber;
     ///Functii private
     void initializare_text();
     void initializare_variabile();
@@ -38,7 +40,7 @@ public:
     ///constructoti destructori etc
     explicit Meniu();
     ~Meniu();
-    bool running() const;
+    bool running() override;
 };
 
 

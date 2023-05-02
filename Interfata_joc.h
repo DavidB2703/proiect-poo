@@ -4,6 +4,7 @@
 
 #ifndef OOP_INTERFATA_JOC_H
 #define OOP_INTERFATA_JOC_H
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -20,6 +21,10 @@ public:
     virtual void update()=0;
     virtual void render()=0;
     virtual void pollEvents()=0;
+    virtual bool running()=0;
+    explicit Interfata_joc(){
+        std::cout<<"CONSTRUCTOR CLASA DE BAZA\n";
+    }
 };
 
 

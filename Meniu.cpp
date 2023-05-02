@@ -6,10 +6,12 @@
 #include "EndlessMaze.h"
 #include "Interfata_joc.h"
 #include "FallingBlocks.h"
+#include "GuessTheNumber.h"
 ///functii private
 void Meniu::initializare_text() {
 
     font.loadFromFile(R"(C:\Users\david\CLionProjects\PROIECT-POO1\arial.ttf)");
+
     titlu.setString("Choose your game!");
     titlu.setFont(font);
     titlu.setCharacterSize(24);
@@ -27,6 +29,12 @@ void Meniu::initializare_text() {
     blocks.setCharacterSize(24);
     blocks.setPosition(450, 250);
     blocks.setFillColor(sf::Color::Black);
+
+    guess.setString("GuessTheNumber");
+    guess.setFont(font);
+    guess.setCharacterSize(24);
+    guess.setPosition(291, 410);
+    guess.setFillColor(sf::Color::Black);
 }
 void Meniu::initializare_variabile() {
 
@@ -63,8 +71,10 @@ void Meniu::draw() {
     {
         this->window->draw(EndlessMaze);
         this->window->draw(FallingBlocks);
+        this->window->draw(GuessTheNumber);
         this->window->draw(titlu);
         this->window->draw(maze);
+        this->window->draw(guess);
         this->window->draw(blocks);
     }
 
@@ -82,6 +92,13 @@ void Meniu::initializare_casuta() {
     this -> FallingBlocks.setFillColor(sf::Color::Green);
     this -> FallingBlocks.setOutlineColor(sf::Color::Black);
     this -> FallingBlocks.setOutlineThickness(5.f);
+
+
+    this -> GuessTheNumber.setPosition(290.f, 380.f);
+    this -> GuessTheNumber.setSize(sf::Vector2f(200.f, 100.f));
+    this -> GuessTheNumber.setFillColor(sf::Color::Green);
+    this -> GuessTheNumber.setOutlineColor(sf::Color::Black);
+    this -> GuessTheNumber.setOutlineThickness(5.f);
 }
 
 void Meniu::pollEvents() {
@@ -101,32 +118,57 @@ void Meniu::pollEvents() {
                 case sf::Event::MouseButtonPressed: {
                     sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
                     sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
+                    sf::FloatRect rectBounds3 = GuessTheNumber.getGlobalBounds();
                     sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
                     if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                         // Do something when the rectangle is clicked
 
-                        Interfata_joc* InterfataPtr = new class EndlessMaze();
-                        auto* MazePtr = dynamic_cast<class EndlessMaze*>(InterfataPtr);
+                            class EndlessMaze Maze;
 
-                        //game loop
-                        while (MazePtr->running()) {
-                            MazePtr->update();
-                            MazePtr->render();
-                        }
-                    }
-                    if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                        try {
-                            Interfata_joc* InterfataPtr = new class FallingBlocks();
-                            auto* FallingBlocksPtr = dynamic_cast<class FallingBlocks*>(InterfataPtr);
                             //game loop
-                            while (FallingBlocksPtr->running()) {
-                                FallingBlocksPtr->update();
-                                FallingBlocksPtr->render();
+                            while (Maze.running()) {
+
+                                try {Maze.update();}
+
+                                catch (const eroare_endless_maze& err) {
+                                    std::cout<<err.what();
+                                }
+
+                                Maze.render();
                             }
-                        } catch (eroare_falling_blocks &err) {
-                            std::cout << "Eroarea este: " << err.what() << "\n";
+
+                        }
+                    if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+
+                            Interfata_joc* InterfataPtr = new class FallingBlocks();
+
+                            //game loop
+                            while (InterfataPtr->running()) {
+                                try{InterfataPtr->update();}
+                                    catch (eroare_falling_blocks &err) {
+                                        std::cout << "Eroarea este: " << err.what() << "\n";
+                                    }
+                                InterfataPtr->render();
+
+
                         }
 
+                    }
+
+
+                    if (rectBounds3.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        // Do something when the rectangle is clicked
+
+                         Interfata_joc* game = new  class GuessTheNumber(10);
+                        for (int i = 0; i < 10; i++) {
+
+                            try {game->update();}
+                            catch(const eroare_GuessTheNumber& err) {
+                                std::cout<<"Eroarea este "<<err.what()<<"\n";
+                            }
+                        }
+                        dynamic_cast<class GuessTheNumber*>(game)->afisare_nr_jocuri();
+                        delete game;
                     }
 
                 }break;
@@ -134,6 +176,7 @@ void Meniu::pollEvents() {
                     // Check if the mouse is within the bounds of the rectangle
                     sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
                     sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
+                    sf::FloatRect rectBounds3 = GuessTheNumber.getGlobalBounds();
 
                     sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
                     if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
@@ -149,6 +192,11 @@ void Meniu::pollEvents() {
                         FallingBlocks.setFillColor(sf::Color::Green);
                     }
 
+                    if (rectBounds3.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        GuessTheNumber.setFillColor(sf::Color::Blue);
+                    } else {
+                        GuessTheNumber.setFillColor(sf::Color::Green);
+                    }
                 }break;
                 default:
                     break;
@@ -170,7 +218,9 @@ Meniu::~Meniu() {
     delete this->window;
 }
 
-bool Meniu::running() const {
+
+
+bool Meniu::running()  {
     if(this->window != nullptr)
         return this->window->isOpen();
     return false;

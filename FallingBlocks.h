@@ -4,6 +4,8 @@
 
 #ifndef OOP_FALLINGBLOCKS_H
 #define OOP_FALLINGBLOCKS_H
+
+
 #include "Interfata_joc.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -13,7 +15,6 @@
 #include <SFML/Config.hpp>
 #include <stdexcept>
 #include <string>
-
 
 
 class eroare_falling_blocks : public eroare_aplicatie {
@@ -29,6 +30,7 @@ private:
     sf::RenderWindow *window{};
     sf::VideoMode videoMode;
     sf::Event ev{};
+    static int numar_inamici;
     ///functii private
     void initializare_variabile();
     void initializare_fereastra();
@@ -36,6 +38,8 @@ private:
     void draw();
 public:
     ///Functii
+    void numarare_inamici();
+    static void afisare_inamici();
     void update() override;
     void render() override;
     void pollEvents() override;
@@ -43,7 +47,7 @@ public:
     explicit FallingBlocks();
     ~FallingBlocks();
     ///Accesors
-     bool running() ;
+     bool running() override;
 };
 
 

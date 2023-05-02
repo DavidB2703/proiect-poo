@@ -20,6 +20,13 @@ void FallingBlocks::initializare_inamici() {
     this -> enemy.setOutlineThickness(5.f);
 }
 
+void FallingBlocks::numarare_inamici() {
+    numar_inamici++;
+}
+
+void FallingBlocks::afisare_inamici() {
+    std::cout<<"Numar de inamici omorati este: "<< numar_inamici;
+}
 
 void FallingBlocks::initializare_variabile() {
 
@@ -37,11 +44,9 @@ void FallingBlocks::initializare_fereastra() {
 }
 ///functii publice
 
-
 void FallingBlocks::update() {
 
     this -> pollEvents();
-
 }
 
 void FallingBlocks::render() {
@@ -68,12 +73,12 @@ void FallingBlocks::pollEvents() {
         {
 
             case sf::Event::Closed:
-                this->window->close();
+                this->window->close(), afisare_inamici();
                 break;
             case sf:: Event:: KeyPressed:
             {
                 if( this-> ev.key.code == sf::Keyboard::Escape )
-                    this->window->close();
+                    this->window->close(), afisare_inamici();
             }break;
             case sf::Event::MouseButtonPressed:
             {
@@ -82,8 +87,10 @@ void FallingBlocks::pollEvents() {
                 if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
                 {
                     // Do something when the rectangle is clicked
+                    numarare_inamici();
                     initializare_inamici();
                     draw();
+
                 }
                 else
                 {
@@ -136,5 +143,9 @@ bool FallingBlocks::running() {
         return this->window->isOpen();
     return false;
 }
+
+
+
+
 
 
