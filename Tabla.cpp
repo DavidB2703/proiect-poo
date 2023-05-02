@@ -31,23 +31,31 @@ void Tabla::move_jucator(char c,int& var) {
     sf::Vector2f position = jucator.getPosition();
     int x=int(position.x)/20, y=int(position.y)/20;
     if (c=='W')
+    {
         if(matrice[x][y-1] !=0)
-        jucator.move(0.f,-20.f);
+            jucator.move(0.f,-20.f);
         else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+    }
     if (c=='A' )
+    {
         if(matrice[x-1][y] !=0)
         jucator.move(-20.f,0.f);
         else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+    }
 
     if (c=='S')
+    {
         if(matrice[x][y+1] !=0)
-        jucator.move(0.f,20.f);
+            jucator.move(0.f,20.f);
         else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+    }
 
-    if (c=='D')
+
+    if (c=='D'){
         if(matrice[x+1][y]!=0)
         jucator.move(20.f,0.f);
         else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+    }
 
     sf::Vector2f position_final=final.getPosition();
     sf::Vector2f position1 = jucator.getPosition();
