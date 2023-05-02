@@ -168,7 +168,6 @@ void Meniu::pollEvents() {
                             }
                         }
                         dynamic_cast<class GuessTheNumber*>(game)->afisare_nr_jocuri();
-                        delete game;
                     }
 
                 }break;
