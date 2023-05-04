@@ -43,6 +43,8 @@ public:
     }
 
     static void afisare_nr_jocuri();
+
+    GuessTheNumber();
 };
 
 

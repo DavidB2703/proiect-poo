@@ -26,6 +26,10 @@ private:
     sf::RectangleShape EndlessMaze;
     sf::RectangleShape FallingBlocks;
     sf::RectangleShape GuessTheNumber;
+    std::vector<Interfata_joc*> jocuri;
+    Interfata_joc* joc1{};
+    Interfata_joc* joc2{};
+    Interfata_joc* joc3{};
     ///Functii private
     void initializare_text();
     void initializare_variabile();

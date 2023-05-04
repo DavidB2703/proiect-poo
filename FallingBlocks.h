@@ -43,6 +43,7 @@ public:
     void update() override;
     void render() override;
     void pollEvents() override;
+    void closeWindow();
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit FallingBlocks();
     ~FallingBlocks();

@@ -144,6 +144,10 @@ bool FallingBlocks::running() {
     return false;
 }
 
+void FallingBlocks::closeWindow() {
+    this -> window -> close();
+}
+
 
 
 

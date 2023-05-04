@@ -100,6 +100,10 @@ bool EndlessMaze::running()  {
     return this->window->isOpen();
 }
 
+void EndlessMaze::closeWindow() {
+    this->window->close();
+}
+
 
 
 

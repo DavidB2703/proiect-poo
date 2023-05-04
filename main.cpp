@@ -8,8 +8,6 @@ int Tabla::numar_mutari=0;
 int FallingBlocks:: numar_inamici=0;
 int GuessTheNumber::numGamesPlayed = 0;
 
-
-
 int main()
 {
     Interfata_joc *MeniuPtr = new Meniu() ;

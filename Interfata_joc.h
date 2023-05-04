@@ -25,6 +25,7 @@ public:
     explicit Interfata_joc(){
         std::cout<<"CONSTRUCTOR CLASA DE BAZA\n";
     }
+    virtual ~Interfata_joc()= default;
 };
 
 

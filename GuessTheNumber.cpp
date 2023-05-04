@@ -21,8 +21,14 @@ void GuessTheNumber::update()
         }
         if (!gameOver) {
             std::cout << "Enter your guess: ";
+
             int guess;
             std::cin >> guess;
+
+            if ( std::cin.fail() ){
+                throw eroare_GuessTheNumber("Trebuie sa introduci un numar");
+            }
+
             numGuesses++;
             if (guess == numToGuess) {
                 std::cout << "Congratulations! You guessed the number in " << numGuesses << " tries." << std::endl;
@@ -46,3 +52,4 @@ void GuessTheNumber::update()
 void GuessTheNumber::afisare_nr_jocuri() {
     std::cout<<"Number of games played: "<< numGamesPlayed<<"\n";
 }
+

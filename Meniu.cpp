@@ -11,7 +11,6 @@
 void Meniu::initializare_text() {
 
     font.loadFromFile(R"(C:\Users\david\CLionProjects\PROIECT-POO1\arial.ttf)");
-
     titlu.setString("Choose your game!");
     titlu.setFont(font);
     titlu.setCharacterSize(24);
@@ -39,6 +38,12 @@ void Meniu::initializare_text() {
 void Meniu::initializare_variabile() {
 
     this->window = nullptr;
+     joc1 = new class EndlessMaze();
+     joc2 = new class FallingBlocks();
+     joc3 = new class GuessTheNumber(10);
+    jocuri.emplace_back(joc1);
+    jocuri.emplace_back(joc2);
+    jocuri.emplace_back(joc3);
 
 }
 
@@ -116,41 +121,39 @@ void Meniu::pollEvents() {
                         this->window->close();
                 }break;
                 case sf::Event::MouseButtonPressed: {
+                    //jocuri[0] = endlessmaze jocuri[1] = falling blocks jocuri[2] = guessthenumber
                     sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
                     sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
                     sf::FloatRect rectBounds3 = GuessTheNumber.getGlobalBounds();
                     sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
                     if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                         // Do something when the rectangle is clicked
-
-                            class EndlessMaze Maze;
-
+                            this->window->close();
+                            auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
+                            fallingBlocks -> closeWindow();
                             //game loop
-                            while (Maze.running()) {
+                            while (jocuri[0]->running()) {
 
-                                try {Maze.update();}
+                                try {jocuri[0]->update();}
 
                                 catch (const eroare_endless_maze& err) {
                                     std::cout<<err.what();
                                 }
-
-                                Maze.render();
+                                jocuri[0]->render();
                             }
-
                         }
                     if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
 
-                            Interfata_joc* InterfataPtr = new class FallingBlocks();
-
-                            //game loop
-                            while (InterfataPtr->running()) {
-                                try{InterfataPtr->update();}
+                        this->window->close();
+                        auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[0]);
+                        endlessMaze -> closeWindow();
+                        //game loop
+                            while (jocuri[1]->running()) {
+                                try{jocuri[1]->update();}
                                     catch (eroare_falling_blocks &err) {
                                         std::cout << "Eroarea este: " << err.what() << "\n";
                                     }
-                                InterfataPtr->render();
-
-
+                                jocuri[1]->render();
                         }
 
                     }
@@ -158,16 +161,22 @@ void Meniu::pollEvents() {
 
                     if (rectBounds3.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                         // Do something when the rectangle is clicked
+                        this->window->close();
 
-                         Interfata_joc* game = new  class GuessTheNumber(10);
+                        auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[0]);
+                        endlessMaze -> closeWindow();
+
+                        auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
+                        fallingBlocks -> closeWindow();
+
                         for (int i = 0; i < 10; i++) {
 
-                            try {game->update();}
+                            try {jocuri[2]->update();}
                             catch(const eroare_GuessTheNumber& err) {
                                 std::cout<<"Eroarea este "<<err.what()<<"\n";
                             }
                         }
-                        dynamic_cast<class GuessTheNumber*>(game)->afisare_nr_jocuri();
+                        GuessTheNumber::afisare_nr_jocuri();
                     }
 
                 }break;
@@ -215,6 +224,9 @@ Meniu::Meniu() {
 
 Meniu::~Meniu() {
     delete this->window;
+    delete this->joc1;
+    delete this->joc2;
+    delete this->joc3;
 }
 
 
