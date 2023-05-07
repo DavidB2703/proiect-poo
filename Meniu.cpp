@@ -109,7 +109,6 @@ void Meniu::initializare_casuta() {
 void Meniu::pollEvents() {
     if(this->window != nullptr) {
 
-
         while (this->window->pollEvent(this->ev)) {
             switch (this->ev.type) {
 
@@ -129,8 +128,10 @@ void Meniu::pollEvents() {
                     if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                         // Do something when the rectangle is clicked
                             this->window->close();
-                            auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
-                            fallingBlocks -> closeWindow();
+                            try{
+                                auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
+                                fallingBlocks -> closeWindow();
+                            }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
                             //game loop
                             while (jocuri[0]->running()) {
 
@@ -145,29 +146,33 @@ void Meniu::pollEvents() {
                     if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
 
                         this->window->close();
-                        auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[0]);
-                        endlessMaze -> closeWindow();
-                        //game loop
-                            while (jocuri[1]->running()) {
-                                try{jocuri[1]->update();}
-                                    catch (eroare_falling_blocks &err) {
-                                        std::cout << "Eroarea este: " << err.what() << "\n";
-                                    }
-                                jocuri[1]->render();
-                        }
+                        try{
+                            auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[0]);
+                            endlessMaze -> closeWindow();
+                        }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
 
+                        //game loop
+                        try {
+                            while (jocuri[1]->running()) {
+
+                                jocuri[1]->update();
+                                jocuri[1]->render();
+                                     }
+                             }catch (eroare_falling_blocks &err) {
+                            std::cout << "Eroarea este: " << err.what() << "\n";
+                                }
                     }
 
 
                     if (rectBounds3.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                         // Do something when the rectangle is clicked
                         this->window->close();
-
-                        auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[0]);
-                        endlessMaze -> closeWindow();
-
-                        auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
-                        fallingBlocks -> closeWindow();
+                        try {
+                            auto *endlessMaze = dynamic_cast<class EndlessMaze *> (jocuri[0]);
+                            endlessMaze->closeWindow();
+                            auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
+                            fallingBlocks -> closeWindow();
+                        }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
 
                         for (int i = 0; i < 10; i++) {
 
@@ -205,9 +210,10 @@ void Meniu::pollEvents() {
                     } else {
                         GuessTheNumber.setFillColor(sf::Color::Green);
                     }
-                }break;
-                default:
-                    break;
+                break;}
+
+                        default:
+                            break;
             }
         }
     }

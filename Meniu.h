@@ -12,7 +12,7 @@
 #include <SFML/Config.hpp>
 #include "Interfata_joc.h"
 
-class Meniu: public Interfata_joc {
+class Meniu {
 private:
     ///obiectele meniului
     sf::Font font;
@@ -36,15 +36,15 @@ private:
     void initializare_fereastra();
 public:
     ///Functii publice
-    void update() override;
-    void render() override;
-    void pollEvents() override;
+    void update() ;
+    void render() ;
+    void pollEvents() ;
     void initializare_casuta();
     void draw();
     ///constructoti destructori etc
     explicit Meniu();
     ~Meniu();
-    bool running() override;
+    bool running() ;
 };
 
 

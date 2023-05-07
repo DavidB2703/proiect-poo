@@ -10,11 +10,11 @@ int GuessTheNumber::numGamesPlayed = 0;
 
 int main()
 {
-    Interfata_joc *MeniuPtr = new Meniu() ;
-        while(MeniuPtr->running())
+    Meniu meniu ;
+        while(meniu.running())
         {
-            MeniuPtr->update();
-            MeniuPtr->render();
+           meniu.update();
+           meniu.render();
         }
     return 0;
 }
