@@ -45,7 +45,7 @@ public:
     void initializare_fereastra() override;
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit FallingBlocks();
-    ~FallingBlocks();
+    ~FallingBlocks() override;
     ///Accesors
      bool running() override;
 };

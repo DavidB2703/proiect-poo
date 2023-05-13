@@ -13,7 +13,7 @@ using std::vector;
 void Tabla::numarare_mutari() {
     numar_mutari++;
 }
-void Tabla::afisare_mutari() {
+void Tabla::afisare_mutari() const {
     std::cout<<"Numarul de mutari facute este: "<< numar_mutari <<"\n";
 }
 
@@ -61,16 +61,16 @@ void Tabla::move_jucator(char c,int& var) {
 }
 
 void Tabla::initializare_final(int x, int y) {
-    this -> final.setPosition(y*20,x*20);
-    this -> final.setSize(sf::Vector2f(20.f,20.f));
+    this -> final.setPosition(float(y*20),float(x*20));
+    this -> final.setSize(sf::Vector2f(float(20.f),float(20.f)));
     this -> final.setFillColor(sf::Color::Red);
     this -> final.setOutlineColor(sf::Color::Black);
     this -> final.setOutlineThickness(1.f);
 }
 
 void Tabla::initializare_jucator(int x, int y) {
-    this -> jucator.setPosition(y*20,x*20);
-    this -> jucator.setSize(sf::Vector2f(20.f,20.f));
+    this -> jucator.setPosition(float(y*20),float(x*20));
+    this -> jucator.setSize(sf::Vector2f(float(20.f),float(20.f)));
     this -> jucator.setFillColor(sf::Color::Blue);
     this -> jucator.setOutlineColor(sf::Color::Black);
     this -> jucator.setOutlineThickness(1.f);
@@ -100,7 +100,7 @@ void Tabla::initializare_tabla() {
         for( int j=0; j<heigh/2; j++ )
             if ( matrice[i][j]!=0 )
             {
-                this -> matrice_de_desenat[i][j].setPosition(i*20.f,j*20.f);
+                this -> matrice_de_desenat[i][j].setPosition(float(i*20),float(j*20));
                 this -> matrice_de_desenat[i][j].setSize(sf::Vector2f(20.f,20.f));
                 this -> matrice_de_desenat[i][j].setFillColor(sf::Color::Green);
                 this -> matrice_de_desenat[i][j].setOutlineColor(sf::Color::Black);
@@ -150,7 +150,6 @@ Tabla::Tabla()
         numar_mutari = 0;
         this->generare_tabla();
         this->initializare_tabla();
-    std :: cout<<"Constructor de initializere al clasei Tabla\n";
 }
 
 
@@ -164,17 +163,19 @@ Tabla &Tabla::operator=(const Tabla &other) {
     return *this;
 }
 
-Tabla::~Tabla() {
-    std:: cout<<"Destructorul clasei Tabla\n";
-}
+Tabla::~Tabla() {}
 
 void Tabla::resetare_mutari() {
     numar_mutari = 0;
 }
 
-void Tabla::verificare_mutari() {
+void Tabla::verificare_mutari() const {
     if (numar_mutari > 100)
         throw eroare_endless_maze("Pierzi daca ai facut mai mult de 100 de mutari");
+}
+
+void Tabla::resetare_contor() {
+    ct_tabla = 0;
 }
 
 

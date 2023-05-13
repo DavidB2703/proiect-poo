@@ -28,10 +28,10 @@ private:
     void initializare_fereastra();
 public:
     ///Functii publice
-    void update(std::vector<Casuta_Joc> casute, std::vector<Interfata_joc*>  jocuri) ;
-    void render(std::vector<Casuta_Joc> casute) ;
-    void pollEvents(std::vector<Casuta_Joc> casute,std::vector<Interfata_joc*> jocuri) ;
-    void draw(std::vector<Casuta_Joc> casute);
+    void update(std::vector<Casuta_Joc*> casute, std::vector<Interfata_joc*>  jocuri) ;
+    void render(std::vector<Casuta_Joc*> casute) ;
+    void pollEvents(std::vector<Casuta_Joc*> casute,std::vector<Interfata_joc*> jocuri) ;
+    void draw(std::vector<Casuta_Joc*> casute);
     ///constructoti destructori etc
     explicit Meniu();
     ~Meniu();

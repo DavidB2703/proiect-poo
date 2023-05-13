@@ -27,16 +27,16 @@ private:
     sf::RectangleShape final;
     sf::Event event{};
     static int ct_tabla;
-    static int numar_mutari;
+    int numar_mutari = 0;
     ///Functii private
 public:
     ///Functii publice
-    static void numarare_mutari();
-    static void afisare_mutari();
+     void numarare_mutari();
+     void afisare_mutari() const;
     static void numarare_table();
     static void afisare_nr_table();
-    static void resetare_mutari();
-    static void verificare_mutari();
+    void resetare_mutari();
+    void verificare_mutari() const;
     void move_jucator(char c, int& var);
     void draw(sf::RenderWindow* window);
     void initializare_jucator(int x,int y);
@@ -46,7 +46,7 @@ public:
     void initializare_tabla();
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit Tabla();
-
+    void resetare_contor();
     Tabla& operator=(const Tabla& other);
     ~Tabla();
 };

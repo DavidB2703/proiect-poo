@@ -9,6 +9,14 @@ void FallingBlocks::draw() {
     this->window->draw(enemy);
     srand(time(nullptr));
     enemy.move(0.f,float(rand()%5));
+
+    sf::FloatRect rectBounds = enemy.getGlobalBounds();
+    sf::FloatRect windowBounds(sf::Vector2f(0.f, 0.f), static_cast<const sf::Vector2<float>>(window->getSize()));
+    if (!rectBounds.intersects(windowBounds))
+    {
+        throw eroare_falling_blocks("Ai pierdut");
+    }
+
 }
 void FallingBlocks::initializare_inamici() {
     int x_pos;
@@ -128,7 +136,7 @@ void FallingBlocks::pollEvents() {
 FallingBlocks::FallingBlocks() {
 
     srand(time(nullptr));
-
+    numar_inamici = 0;
     this->initializare_variabile();
     this->initializare_inamici();
 }

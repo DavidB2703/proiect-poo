@@ -57,21 +57,21 @@ void EndlessMaze::pollEvents() {
             case sf:: Event:: KeyPressed:
             {   int var=0;
                 if( this-> ev.key.code == sf::Keyboard::Escape )
-                    this->window->close(), Tabla::afisare_nr_table(), Tabla::afisare_mutari();
+                    this->window->close(), Tabla::afisare_nr_table(), tabla.afisare_mutari();
                 if ( this-> ev.key.code == sf::Keyboard::W )
-                    tabla.move_jucator('W',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
+                    tabla.move_jucator('W',var), tabla.numarare_mutari(), tabla.verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::A )
-                    tabla.move_jucator('A',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
+                    tabla.move_jucator('A',var), tabla.numarare_mutari(), tabla.verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::S )
-                    tabla.move_jucator('S',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
+                    tabla.move_jucator('S',var), tabla.numarare_mutari(), tabla.verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::D )
-                    tabla.move_jucator('D',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
+                    tabla.move_jucator('D',var), tabla.numarare_mutari(), tabla.verificare_mutari();
                 if(var==1) {
 
                     Tabla tabla_noua;
                     Tabla::numarare_table();
-                    Tabla::afisare_mutari();
-                    Tabla::resetare_mutari();
+                    tabla.afisare_mutari();
+                    tabla.resetare_mutari();
                     tabla = tabla_noua;
 
                 }
@@ -87,7 +87,6 @@ void EndlessMaze::pollEvents() {
 ///Constructori/Deconstructori/Operator=/Operator<<
 EndlessMaze::EndlessMaze()   {
     this->initializare_variabile();
-    std:: cout<<"constructor de initializare al clasei EndlessMaze\n";
 }
 EndlessMaze::~EndlessMaze() {
     delete this->window;
@@ -107,6 +106,18 @@ void EndlessMaze::closeWindow() {
 void EndlessMaze::schimbare_tabla() {
     Tabla tabla_noua;
     tabla=tabla_noua;
+}
+
+void EndlessMaze::resetare_mutari() {
+    this->tabla.resetare_mutari();
+}
+
+void EndlessMaze::afisare_table() {
+    tabla.afisare_nr_table();
+}
+
+void EndlessMaze::resetare_numar_labirinturi() {
+    tabla.resetare_contor();
 }
 
 

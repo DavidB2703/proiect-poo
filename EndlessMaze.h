@@ -35,7 +35,10 @@ public:
     ~EndlessMaze();
     ///Accesors
     bool running() override;
+    void resetare_mutari();
+    void afisare_table();
     void schimbare_tabla();
+    void resetare_numar_labirinturi();
 };
 
 #endif //OOP_ENDLESSMAZE_H

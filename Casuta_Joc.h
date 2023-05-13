@@ -27,6 +27,7 @@ public:
     void changeBackround();
     void changeBackroundBack();
     void draw(sf::RenderWindow* window);
+
 };
 
 

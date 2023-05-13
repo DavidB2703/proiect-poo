@@ -39,11 +39,11 @@ void Meniu::initializare_fereastra() {
     window->setView(view);
 }
 ///functii publice
-void Meniu::update(std::vector<Casuta_Joc> casute,  std::vector<Interfata_joc*> jocuri) {
+void Meniu::update(std::vector<Casuta_Joc*> casute,  std::vector<Interfata_joc*> jocuri) {
     this -> pollEvents(std::move(casute), std::move(jocuri));
 }
 
-void Meniu::render(std::vector<Casuta_Joc> casute) {
+void Meniu::render(std::vector<Casuta_Joc*> casute) {
     if(this->window != nullptr)
     {
         this->window->clear(sf::Color::Black);
@@ -55,18 +55,18 @@ void Meniu::render(std::vector<Casuta_Joc> casute) {
 
 }
 
-void Meniu::draw(std::vector<Casuta_Joc> casute) {
+void Meniu::draw(std::vector<Casuta_Joc*> casute) {
     if(this->window != nullptr)
     {
         this->window->draw(titlu);
     for (auto & casuta : casute)
-            casuta.draw(window);
+            casuta->draw(window);
     }
 
 }
 
 
-void Meniu::pollEvents(std::vector<Casuta_Joc> casute,  std::vector<Interfata_joc*> jocuri) {
+void Meniu::pollEvents(std::vector<Casuta_Joc*> casute,  std::vector<Interfata_joc*> jocuri) {
     if(this->window != nullptr) {
 
         while (this->window->pollEvent(this->ev)) {
@@ -97,10 +97,9 @@ void Meniu::pollEvents(std::vector<Casuta_Joc> casute,  std::vector<Interfata_jo
                 case sf::Event::MouseButtonPressed: {
 
                     for ( long long unsigned i = 0; i<casute.size(); i++ )
-                        if (casute[i].isClicked(window, ev, view))
+                        if (casute[i]->isClicked(window, ev, view))
                         {
 
-                            std::cout<<"DAI CLICK PE CASUTA "<<i <<"\n";
                             //start jocuri[i]
                             //game loop
 
@@ -112,7 +111,7 @@ void Meniu::pollEvents(std::vector<Casuta_Joc> casute,  std::vector<Interfata_jo
                                 jocuri[i]->update();
                                 jocuri[i]->render();
                                      }
-                                std::cout<<"game stopped\n";
+                                std::cout<<"Game Over\n";
                             }catch (eroare_falling_blocks &err) {
                             std::cout << "Eroarea este: " << err.what() << "\n";
 
@@ -123,18 +122,20 @@ void Meniu::pollEvents(std::vector<Casuta_Joc> casute,  std::vector<Interfata_jo
                             }
                             catch (eroare_endless_maze &err){
 
-                                std::cout << "Eroarea este: " << err.what() << "\n";
-                                Tabla::resetare_mutari();
+                                std::cout << "Eroarea este: " << err.what() << "\n"<<"Game Over\n";
                                 try{
                                 auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[i]);
                                 endlessMaze -> closeWindow();
                                 endlessMaze ->schimbare_tabla();
+                                endlessMaze -> resetare_mutari();
+                                endlessMaze -> afisare_table();
+                                endlessMaze -> resetare_numar_labirinturi();
                              }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
 
                             }
                            catch (eroare_GuessTheNumber &err)
                             {
-                                std::cout<<"Eroarea este: "<<err.what();
+                                std::cout<<"Eroarea este: "<<err.what()<<"\nGame Over";
                                 try{
                                     auto* GuessTheNumber = dynamic_cast<class GuessTheNumber*> (jocuri[i]);
                                     GuessTheNumber -> restartGame();
@@ -147,9 +148,9 @@ void Meniu::pollEvents(std::vector<Casuta_Joc> casute,  std::vector<Interfata_jo
                 case sf::Event::MouseMoved: {
 
                     for (auto & casuta : casute)
-                    {
-                        if (casuta.isHovered(window, ev, view))
-                            casuta.changeBackround();
+                    {  ///nu merge sa schimb culoarea cand fac hover, nu stiu de ce
+//                        if (casuta->isHovered(window, ev, view))
+//                            casuta->changeBackround();
                     }
 
 
