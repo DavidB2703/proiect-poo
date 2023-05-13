@@ -130,7 +130,7 @@ void Meniu::pollEvents(std::vector<Casuta_Joc*> casute,  std::vector<Interfata_j
                                 endlessMaze -> resetare_mutari();
                                 endlessMaze -> afisare_table();
                                 endlessMaze -> resetare_numar_labirinturi();
-                             }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
+                             }catch(std::bad_cast& errr){ std::cout<<"cast nereusit "<<errr.what(); }
 
                             }
                            catch (eroare_GuessTheNumber &err)
@@ -139,7 +139,7 @@ void Meniu::pollEvents(std::vector<Casuta_Joc*> casute,  std::vector<Interfata_j
                                 try{
                                     auto* GuessTheNumber = dynamic_cast<class GuessTheNumber*> (jocuri[i]);
                                     GuessTheNumber -> restartGame();
-                                }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
+                                }catch(std::bad_cast& errr){ std::cout<<"cast nereusit "<<errr.what(); }
                             }
                     }
 
