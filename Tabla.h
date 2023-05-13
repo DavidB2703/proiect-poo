@@ -35,6 +35,8 @@ public:
     static void afisare_mutari();
     static void numarare_table();
     static void afisare_nr_table();
+    static void resetare_mutari();
+    static void verificare_mutari();
     void move_jucator(char c, int& var);
     void draw(sf::RenderWindow* window);
     void initializare_jucator(int x,int y);

@@ -93,7 +93,7 @@ endif()
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${PROJECT_NAME} main.cpp EndlessMaze.cpp EndlessMaze.h Tabla.cpp Tabla.h Interfata_joc.cpp Interfata_joc.h Meniu.cpp Meniu.h FallingBlocks.cpp FallingBlocks.h GuessTheNumber.cpp GuessTheNumber.h)
+add_executable(${PROJECT_NAME} main.cpp EndlessMaze.cpp EndlessMaze.h Tabla.cpp Tabla.h Interfata_joc.cpp Interfata_joc.h Meniu.cpp Meniu.h FallingBlocks.cpp FallingBlocks.h GuessTheNumber.cpp GuessTheNumber.h Casuta_Joc.cpp Casuta_Joc.h)
 
 ###############################################################################
 
@@ -142,4 +142,4 @@ endif()
 # update name in .github/workflows/cmake.yml:29 when changing "bin" name here
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
-# install(FILES some_file1.txt some_file2.md DESTINATION bin)
+ install(FILES arial.ttf DESTINATION bin)

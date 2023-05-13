@@ -59,18 +59,19 @@ void EndlessMaze::pollEvents() {
                 if( this-> ev.key.code == sf::Keyboard::Escape )
                     this->window->close(), Tabla::afisare_nr_table(), Tabla::afisare_mutari();
                 if ( this-> ev.key.code == sf::Keyboard::W )
-                    tabla.move_jucator('W',var), Tabla::numarare_mutari();
+                    tabla.move_jucator('W',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::A )
-                    tabla.move_jucator('A',var), Tabla::numarare_mutari();
+                    tabla.move_jucator('A',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::S )
-                    tabla.move_jucator('S',var), Tabla::numarare_mutari();
+                    tabla.move_jucator('S',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::D )
-                    tabla.move_jucator('D',var), Tabla::numarare_mutari();
+                    tabla.move_jucator('D',var), Tabla::numarare_mutari(), Tabla::verificare_mutari();
                 if(var==1) {
 
                     Tabla tabla_noua;
                     Tabla::numarare_table();
                     Tabla::afisare_mutari();
+                    Tabla::resetare_mutari();
                     tabla = tabla_noua;
 
                 }
@@ -86,7 +87,6 @@ void EndlessMaze::pollEvents() {
 ///Constructori/Deconstructori/Operator=/Operator<<
 EndlessMaze::EndlessMaze()   {
     this->initializare_variabile();
-    this->initializare_fereastra();
     std:: cout<<"constructor de initializare al clasei EndlessMaze\n";
 }
 EndlessMaze::~EndlessMaze() {
@@ -102,6 +102,11 @@ bool EndlessMaze::running()  {
 
 void EndlessMaze::closeWindow() {
     this->window->close();
+}
+
+void EndlessMaze::schimbare_tabla() {
+    Tabla tabla_noua;
+    tabla=tabla_noua;
 }
 
 

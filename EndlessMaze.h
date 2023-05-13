@@ -23,18 +23,19 @@ private:
     Tabla tabla;
     ///Functii private
     void initializare_variabile();
-    void initializare_fereastra();
 public:
     ///Functii
     void update() override;
     void render() override;
     void pollEvents() override;
+    void initializare_fereastra() override;
     void closeWindow();
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit EndlessMaze();
     ~EndlessMaze();
     ///Accesors
     bool running() override;
+    void schimbare_tabla();
 };
 
 #endif //OOP_ENDLESSMAZE_H

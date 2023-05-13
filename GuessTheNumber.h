@@ -18,33 +18,25 @@ public:
 
 class GuessTheNumber : public Interfata_joc {
 private:
+    int guesses;
     int numToGuess;
     int numGuesses;
     int maxNumGuesses;
     bool gameOver;
-
+    bool stopsign = true;
     static int numGamesPlayed;
 
 public:
     [[maybe_unused]] explicit GuessTheNumber(int maxNumGuesses);
-
     void update() override;
-
-    void render() override {
-        // not needed for this game
-    }
-
-    void pollEvents() override {
-        // not needed for this game
-    }
-    bool running() override{
-        // not needed for this game
-        return false;
-    }
-
+    void render() override{};
+    void pollEvents() override{};
+    bool running() override;
+    void initializare_fereastra() override;
     static void afisare_nr_jocuri();
+    void restartGame();
 
-    GuessTheNumber();
+    ~GuessTheNumber() override;
 };
 
 

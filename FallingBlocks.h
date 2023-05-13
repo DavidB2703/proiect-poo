@@ -33,7 +33,6 @@ private:
     static int numar_inamici;
     ///functii private
     void initializare_variabile();
-    void initializare_fereastra();
     void initializare_inamici();
     void draw();
 public:
@@ -43,7 +42,7 @@ public:
     void update() override;
     void render() override;
     void pollEvents() override;
-    void closeWindow();
+    void initializare_fereastra() override;
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit FallingBlocks();
     ~FallingBlocks();

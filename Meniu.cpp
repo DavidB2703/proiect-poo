@@ -3,48 +3,27 @@
 //
 
 #include "Meniu.h"
+
+#include <utility>
 #include "EndlessMaze.h"
 #include "Interfata_joc.h"
 #include "FallingBlocks.h"
 #include "GuessTheNumber.h"
+#include "Casuta_Joc.h"
 ///functii private
 void Meniu::initializare_text() {
 
-    font.loadFromFile(R"(C:\Users\david\CLionProjects\PROIECT-POO1\arial.ttf)");
+    font.loadFromFile(R"(arial.ttf)");
     titlu.setString("Choose your game!");
     titlu.setFont(font);
     titlu.setCharacterSize(24);
     titlu.setPosition(300, 100);
     titlu.setFillColor(sf::Color::White);
 
-    maze.setString("EndlessMaze");
-    maze.setFont(font);
-    maze.setCharacterSize(24);
-    maze.setPosition(200, 250);
-    maze.setFillColor(sf::Color::Black);
-
-    blocks.setString("FallingBlocks");
-    blocks.setFont(font);
-    blocks.setCharacterSize(24);
-    blocks.setPosition(450, 250);
-    blocks.setFillColor(sf::Color::Black);
-
-    guess.setString("GuessTheNumber");
-    guess.setFont(font);
-    guess.setCharacterSize(24);
-    guess.setPosition(291, 410);
-    guess.setFillColor(sf::Color::Black);
 }
 void Meniu::initializare_variabile() {
 
     this->window = nullptr;
-     joc1 = new class EndlessMaze();
-     joc2 = new class FallingBlocks();
-     joc3 = new class GuessTheNumber(10);
-    jocuri.emplace_back(joc1);
-    jocuri.emplace_back(joc2);
-    jocuri.emplace_back(joc3);
-
 }
 
 void Meniu::initializare_fereastra() {
@@ -53,60 +32,41 @@ void Meniu::initializare_fereastra() {
     this->window = new sf::RenderWindow(this ->videoMode,
                                         "Mini-Games", sf::Style::Titlebar | sf::Style::Close );
     this -> window ->setFramerateLimit(144);
+    // Create a view with the same size as the window
+    view.setSize(static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y));
+    view.setCenter(view.getSize() / 2.f);
+    // Set the view to be displayed in the window
+    window->setView(view);
 }
 ///functii publice
-void Meniu::update() {
-    this -> pollEvents();
+void Meniu::update(std::vector<Casuta_Joc> casute,  std::vector<Interfata_joc*> jocuri) {
+    this -> pollEvents(std::move(casute), std::move(jocuri));
 }
 
-void Meniu::render() {
+void Meniu::render(std::vector<Casuta_Joc> casute) {
     if(this->window != nullptr)
     {
         this->window->clear(sf::Color::Black);
         //Draw Meniu
-        this->draw();
+        this->draw(std::move(casute));
         this ->window ->display();
     }
 
 
 }
 
-void Meniu::draw() {
+void Meniu::draw(std::vector<Casuta_Joc> casute) {
     if(this->window != nullptr)
     {
-        this->window->draw(EndlessMaze);
-        this->window->draw(FallingBlocks);
-        this->window->draw(GuessTheNumber);
         this->window->draw(titlu);
-        this->window->draw(maze);
-        this->window->draw(guess);
-        this->window->draw(blocks);
+    for (auto & casuta : casute)
+            casuta.draw(window);
     }
 
 }
 
-void Meniu::initializare_casuta() {
-    this -> EndlessMaze.setPosition(170.f, 225.f);
-    this -> EndlessMaze.setSize(sf::Vector2f(200.f, 100.f));
-    this -> EndlessMaze.setFillColor(sf::Color::Green);
-    this -> EndlessMaze.setOutlineColor(sf::Color::Black);
-    this -> EndlessMaze.setOutlineThickness(5.f);
 
-    this -> FallingBlocks.setPosition(420.f, 225.f);
-    this -> FallingBlocks.setSize(sf::Vector2f(200.f, 100.f));
-    this -> FallingBlocks.setFillColor(sf::Color::Green);
-    this -> FallingBlocks.setOutlineColor(sf::Color::Black);
-    this -> FallingBlocks.setOutlineThickness(5.f);
-
-
-    this -> GuessTheNumber.setPosition(290.f, 380.f);
-    this -> GuessTheNumber.setSize(sf::Vector2f(200.f, 100.f));
-    this -> GuessTheNumber.setFillColor(sf::Color::Green);
-    this -> GuessTheNumber.setOutlineColor(sf::Color::Black);
-    this -> GuessTheNumber.setOutlineThickness(5.f);
-}
-
-void Meniu::pollEvents() {
+void Meniu::pollEvents(std::vector<Casuta_Joc> casute,  std::vector<Interfata_joc*> jocuri) {
     if(this->window != nullptr) {
 
         while (this->window->pollEvent(this->ev)) {
@@ -118,98 +78,81 @@ void Meniu::pollEvents() {
                 case sf::Event::KeyPressed: {
                     if (this->ev.key.code == sf::Keyboard::Escape)
                         this->window->close();
+                    if (this->ev.key.code == sf::Keyboard::Down)
+                    {
+                        view.move(0.f, 10.f); // move the view down by 10 pixels
+                        window->setView(view); // update the window with the new view
+                    }
+                    if (this->ev.key.code == sf::Keyboard::Up)
+                    {
+                        if (view.getCenter().y + view.getSize().y  > Meniu::sceneHeigh)
+                        {
+                            view.move(0.f, -10.f); // move the view down by 10 pixels
+                            window->setView(view); // update the window with the new view
+                        }
+
+                    }
+
                 }break;
                 case sf::Event::MouseButtonPressed: {
-                    //jocuri[0] = endlessmaze jocuri[1] = falling blocks jocuri[2] = guessthenumber
-                    sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
-                    sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
-                    sf::FloatRect rectBounds3 = GuessTheNumber.getGlobalBounds();
-                    sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-                    if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                        // Do something when the rectangle is clicked
-                            this->window->close();
-                            try{
-                                auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
-                                fallingBlocks -> closeWindow();
-                            }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
+
+                    for ( long long unsigned i = 0; i<casute.size(); i++ )
+                        if (casute[i].isClicked(window, ev, view))
+                        {
+
+                            std::cout<<"DAI CLICK PE CASUTA "<<i <<"\n";
+                            //start jocuri[i]
                             //game loop
-                            while (jocuri[0]->running()) {
 
-                                try {jocuri[0]->update();}
+                            jocuri[i] -> initializare_fereastra();
 
-                                catch (const eroare_endless_maze& err) {
-                                    std::cout<<err.what();
-                                }
-                                jocuri[0]->render();
-                            }
-                        }
-                    if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                            try {
+                            while (jocuri[i]->running()) {
 
-                        this->window->close();
-                        try{
-                            auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[0]);
-                            endlessMaze -> closeWindow();
-                        }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
-
-                        //game loop
-                        try {
-                            while (jocuri[1]->running()) {
-
-                                jocuri[1]->update();
-                                jocuri[1]->render();
+                                jocuri[i]->update();
+                                jocuri[i]->render();
                                      }
-                             }catch (eroare_falling_blocks &err) {
+                                std::cout<<"game stopped\n";
+                            }catch (eroare_falling_blocks &err) {
                             std::cout << "Eroarea este: " << err.what() << "\n";
-                                }
-                    }
 
 
-                    if (rectBounds3.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                        // Do something when the rectangle is clicked
-                        this->window->close();
-                        try {
-                            auto *endlessMaze = dynamic_cast<class EndlessMaze *> (jocuri[0]);
-                            endlessMaze->closeWindow();
-                            auto* fallingBlocks = dynamic_cast<class FallingBlocks*> (jocuri[1]);
-                            fallingBlocks -> closeWindow();
-                        }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
+                                delete jocuri[i];
+                                jocuri[i] = new FallingBlocks;
 
-                        for (int i = 0; i < 10; i++) {
-
-                            try {jocuri[2]->update();}
-                            catch(const eroare_GuessTheNumber& err) {
-                                std::cout<<"Eroarea este "<<err.what()<<"\n";
                             }
+                            catch (eroare_endless_maze &err){
+
+                                std::cout << "Eroarea este: " << err.what() << "\n";
+                                Tabla::resetare_mutari();
+                                try{
+                                auto* endlessMaze = dynamic_cast<class EndlessMaze*> (jocuri[i]);
+                                endlessMaze -> closeWindow();
+                                endlessMaze ->schimbare_tabla();
+                             }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
+
+                            }
+                           catch (eroare_GuessTheNumber &err)
+                            {
+                                std::cout<<"Eroarea este: "<<err.what();
+                                try{
+                                    auto* GuessTheNumber = dynamic_cast<class GuessTheNumber*> (jocuri[i]);
+                                    GuessTheNumber -> restartGame();
+                                }catch(std::bad_cast& err){ std::cout<<"cast nereusit "<<err.what(); }
+                            }
+                    }
+
                         }
-                        GuessTheNumber::afisare_nr_jocuri();
-                    }
-
-                }break;
+                break;
                 case sf::Event::MouseMoved: {
-                    // Check if the mouse is within the bounds of the rectangle
-                    sf::FloatRect rectBounds = EndlessMaze.getGlobalBounds();
-                    sf::FloatRect rectBounds2 = FallingBlocks.getGlobalBounds();
-                    sf::FloatRect rectBounds3 = GuessTheNumber.getGlobalBounds();
 
-                    sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-                    if (rectBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                        // Do something when the mouse is over the rectangle
-                        EndlessMaze.setFillColor(sf::Color::Blue);
-                    } else {
-                        // Reset the color of the rectangle when the mouse is not over it
-                        EndlessMaze.setFillColor(sf::Color::Green);
-                    }
-                    if (rectBounds2.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                        FallingBlocks.setFillColor(sf::Color::Blue);
-                    } else {
-                        FallingBlocks.setFillColor(sf::Color::Green);
+                    for (auto & casuta : casute)
+                    {
+                        if (casuta.isHovered(window, ev, view))
+                            casuta.changeBackround();
                     }
 
-                    if (rectBounds3.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                        GuessTheNumber.setFillColor(sf::Color::Blue);
-                    } else {
-                        GuessTheNumber.setFillColor(sf::Color::Green);
-                    }
+
                 break;}
 
                         default:
@@ -224,15 +167,11 @@ void Meniu::pollEvents() {
 Meniu::Meniu() {
     this->initializare_variabile();
     this->initializare_fereastra();
-    this->initializare_casuta();
     this->initializare_text();
 }
 
 Meniu::~Meniu() {
     delete this->window;
-    delete this->joc1;
-    delete this->joc2;
-    delete this->joc3;
 }
 
 

@@ -25,7 +25,7 @@ void FallingBlocks::numarare_inamici() {
 }
 
 void FallingBlocks::afisare_inamici() {
-    std::cout<<"Numar de inamici omorati este: "<< numar_inamici;
+    std::cout<<"Numar de inamici omorati este: "<< numar_inamici<<"\n";
 }
 
 void FallingBlocks::initializare_variabile() {
@@ -130,12 +130,14 @@ FallingBlocks::FallingBlocks() {
     srand(time(nullptr));
 
     this->initializare_variabile();
-    this->initializare_fereastra();
     this->initializare_inamici();
 }
 
 FallingBlocks::~FallingBlocks() {
+
     delete this->window;
+    FallingBlocks::afisare_inamici();
+
 }
 ///Accesors
 bool FallingBlocks::running() {
@@ -144,9 +146,6 @@ bool FallingBlocks::running() {
     return false;
 }
 
-void FallingBlocks::closeWindow() {
-    this -> window -> close();
-}
 
 
 

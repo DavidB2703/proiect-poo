@@ -11,36 +11,27 @@
 #include <SFML/Network.hpp>
 #include <SFML/Config.hpp>
 #include "Interfata_joc.h"
-
+#include "Casuta_Joc.h"
 class Meniu {
 private:
     ///obiectele meniului
     sf::Font font;
     sf::Text titlu;
-    sf::Text maze;
-    sf::Text blocks;
-    sf::Text guess;
     sf::RenderWindow* window{};
     sf::VideoMode videoMode;
     sf::Event ev{};
-    sf::RectangleShape EndlessMaze;
-    sf::RectangleShape FallingBlocks;
-    sf::RectangleShape GuessTheNumber;
-    std::vector<Interfata_joc*> jocuri;
-    Interfata_joc* joc1{};
-    Interfata_joc* joc2{};
-    Interfata_joc* joc3{};
+    sf::View view;
+    static const float sceneHeigh;
     ///Functii private
     void initializare_text();
     void initializare_variabile();
     void initializare_fereastra();
 public:
     ///Functii publice
-    void update() ;
-    void render() ;
-    void pollEvents() ;
-    void initializare_casuta();
-    void draw();
+    void update(std::vector<Casuta_Joc> casute, std::vector<Interfata_joc*>  jocuri) ;
+    void render(std::vector<Casuta_Joc> casute) ;
+    void pollEvents(std::vector<Casuta_Joc> casute,std::vector<Interfata_joc*> jocuri) ;
+    void draw(std::vector<Casuta_Joc> casute);
     ///constructoti destructori etc
     explicit Meniu();
     ~Meniu();

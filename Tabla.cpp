@@ -34,35 +34,30 @@ void Tabla::move_jucator(char c,int& var) {
     {
         if(matrice[x][y-1] !=0)
             jucator.move(0.f,-20.f);
-        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
+
     }
     if (c=='A' )
     {
         if(matrice[x-1][y] !=0)
         jucator.move(-20.f,0.f);
-        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
     }
 
     if (c=='S')
     {
         if(matrice[x][y+1] !=0)
             jucator.move(0.f,20.f);
-        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
     }
 
 
     if (c=='D'){
         if(matrice[x+1][y]!=0)
         jucator.move(20.f,0.f);
-        else throw eroare_endless_maze("Nu ai voie sa mergi in afara patratelelor verzi\n");
     }
 
     sf::Vector2f position_final=final.getPosition();
     sf::Vector2f position1 = jucator.getPosition();
     if( position1.x==position_final.x and position1.y==position_final.y )
         var=1;
-
-
 }
 
 void Tabla::initializare_final(int x, int y) {
@@ -152,6 +147,7 @@ void Tabla::generare_tabla() {
 ///Constructori/Deconstructori/Operator=/Operator<<
 Tabla::Tabla()
         {
+        numar_mutari = 0;
         this->generare_tabla();
         this->initializare_tabla();
     std :: cout<<"Constructor de initializere al clasei Tabla\n";
@@ -170,6 +166,15 @@ Tabla &Tabla::operator=(const Tabla &other) {
 
 Tabla::~Tabla() {
     std:: cout<<"Destructorul clasei Tabla\n";
+}
+
+void Tabla::resetare_mutari() {
+    numar_mutari = 0;
+}
+
+void Tabla::verificare_mutari() {
+    if (numar_mutari > 100)
+        throw eroare_endless_maze("Pierzi daca ai facut mai mult de 100 de mutari");
 }
 
 

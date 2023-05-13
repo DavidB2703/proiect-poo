@@ -21,6 +21,7 @@ public:
     virtual void update()=0;
     virtual void render()=0;
     virtual void pollEvents()=0;
+    virtual void initializare_fereastra()=0;
     virtual bool running()=0;
     explicit Interfata_joc(){
         std::cout<<"CONSTRUCTOR CLASA DE BAZA\n";
