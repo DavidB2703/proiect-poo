@@ -67,9 +67,9 @@ void GuessTheNumber::update()
 
 }
 
-void GuessTheNumber::afisare_nr_jocuri() {
-    std::cout<<"Number of games played: "<< numGamesPlayed<<"\n";
-}
+//void GuessTheNumber::afisare_nr_jocuri() {
+//    std::cout<<"Number of games played: "<< numGamesPlayed<<"\n";
+//}
 
 
 bool GuessTheNumber::running() {
