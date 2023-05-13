@@ -39,26 +39,26 @@ bool Casuta_Joc::isClicked(sf::RenderWindow* window, sf::Event event, sf::View v
 
 }
 
-bool Casuta_Joc::isHovered(sf::RenderWindow* window, sf::Event event, sf::View view) {
+//bool Casuta_Joc::isHovered(sf::RenderWindow* window, sf::Event event, sf::View view) {
+//
+//    sf::Vector2f mousePosition = window->mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y), view);
+//
+//    // Check if the mouse is over the button
+//    if (casuta.getGlobalBounds().contains(mousePosition))
+//        return true;
+//    return false;
+//}
 
-    sf::Vector2f mousePosition = window->mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y), view);
-
-    // Check if the mouse is over the button
-    if (casuta.getGlobalBounds().contains(mousePosition))
-        return true;
-    return false;
-}
-
-void Casuta_Joc::changeBackround() {
-    this -> casuta.setFillColor(sf::Color::Blue);
-}
+//void Casuta_Joc::changeBackround() {
+//    this -> casuta.setFillColor(sf::Color::Blue);
+//}
 
 void Casuta_Joc::draw(sf::RenderWindow *window) {
     window->draw(casuta);
     window->draw(sf_text);
 }
 
-void Casuta_Joc::changeBackroundBack() {
-    this -> casuta.setFillColor(sf::Color::Red);
-
-}
+//void Casuta_Joc::changeBackroundBack() {
+//    this -> casuta.setFillColor(sf::Color::Red);
+//
+//}

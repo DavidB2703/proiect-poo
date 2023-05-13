@@ -147,11 +147,11 @@ void Meniu::pollEvents(std::vector<Casuta_Joc*> casute,  std::vector<Interfata_j
                 break;
                 case sf::Event::MouseMoved: {
 
-                    for (auto & casuta : casute)
-                    {  ///nu merge sa schimb culoarea cand fac hover, nu stiu de ce
-//                        if (casuta->isHovered(window, ev, view))
-//                            casuta->changeBackround();
-                    }
+//                    for (auto & casuta : casute)
+//                    {  ///nu merge sa schimb culoarea cand fac hover, nu stiu de ce
+////                        if (casuta->isHovered(window, ev, view))
+////                            casuta->changeBackround();
+//                    }
 
 
                 break;}
