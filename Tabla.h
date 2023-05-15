@@ -46,7 +46,6 @@ public:
     void initializare_tabla();
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit Tabla();
-    void resetare_contor();
     Tabla& operator=(const Tabla& other);
     ~Tabla();
 };

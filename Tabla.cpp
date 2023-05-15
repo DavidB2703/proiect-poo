@@ -174,9 +174,7 @@ void Tabla::verificare_mutari() const {
         throw eroare_endless_maze("Pierzi daca ai facut mai mult de 100 de mutari");
 }
 
-void Tabla::resetare_contor() {
-    ct_tabla = 0;
-}
+
 
 
 
