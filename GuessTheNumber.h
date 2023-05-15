@@ -34,7 +34,7 @@ public:
     bool running() override;
     void initializare_fereastra() override;
     static void afisare_nr_jocuri();
-    void restartGame();
+    void restartGame() override;
 
     ~GuessTheNumber() override;
 };
