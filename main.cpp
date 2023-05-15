@@ -10,14 +10,14 @@ int FallingBlocks:: numar_inamici=0;
 int GuessTheNumber::numGamesPlayed = 0;
 float Casuta_Joc::x_scale = 300;
 float const Meniu::sceneHeigh = 900.f;
+int Tabla::numar_mutari=0;
 int main()
 {
+    srand(time(nullptr));
     //creare casute care vor aparea in meniu
-    Casuta_Joc EndlessMaze("EndlessMaze");
-    Casuta_Joc FallingBlocks("FallingBlocks");
-    Casuta_Joc GuessTheNumber("GuessNumber");
-
-
+    auto* EndlessMaze = new Casuta_Joc("EndlessMaze");
+    auto* FallingBlocks = new Casuta_Joc("FallingBlocks");
+    auto* GuessTheNumber = new Casuta_Joc("GuessNumber");
 
     Interfata_joc* joc0;
     Interfata_joc* joc1;
@@ -30,9 +30,9 @@ int main()
 
     Meniu meniu;
 
-    meniu.addCasuta(&EndlessMaze);
-    meniu.addCasuta(&FallingBlocks);
-    meniu.addCasuta(&GuessTheNumber);
+    meniu.addCasuta(EndlessMaze);
+    meniu.addCasuta(FallingBlocks);
+    meniu.addCasuta(GuessTheNumber);
     meniu.initializare_casute();
 
     meniu.addJoc(joc0);
@@ -44,8 +44,6 @@ int main()
         meniu.update();
         meniu.render();
     }
-
-    meniu.deleteJocuri();
 
     return 0;
 }

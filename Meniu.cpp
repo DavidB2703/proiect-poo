@@ -1,11 +1,9 @@
 //
 // Created by david on 4/15/2023.
 //
-#include <cstring>
+#include <string>
 #include "Meniu.h"
-#include "EndlessMaze.h"
 #include "Interfata_joc.h"
-#include "FallingBlocks.h"
 #include "GuessTheNumber.h"
 #include "Casuta_Joc.h"
 ///functii private
@@ -35,6 +33,12 @@ void Meniu::initializare_fereastra() {
     view.setCenter(view.getSize() / 2.f);
     // Set the view to be displayed in the window
     window->setView(view);
+}
+void Meniu::deleleCasute() {
+    for (auto* casuta:casute)
+    {
+        delete casuta;
+    }
 }
 ///functii publice
 void Meniu::update() {
@@ -115,44 +119,29 @@ void Meniu::pollEvents() {
                             if (guessTheNumber != nullptr)
                             {
                                 std::cout<<"Do you want to see the number of games played?\n Yes/No\n";
-                                char answer[10];
+                                std::string answer;
                                 std::cin>>answer;
-                                if (strcmp(answer,"Yes") == 0 or strcmp(answer,"1") == 0 or strcmp(answer,"YES") == 0)
+                                if ( answer == "YES" or answer == "Yes" or answer == "yes" or answer == "1" )
                                     GuessTheNumber::afisare_nr_jocuri();
-
+                                std::cout<<"You may go back to the main menu";
                             }
 
-                            }catch (eroare_falling_blocks &err) {
-                            std::cout << "Eroarea este: " << err.what() << "\n";
-                                delete jocuri[i];
-                                jocuri[i] = new FallingBlocks;
-
-                            }
-                            catch (eroare_endless_maze &err){
-
-                                std::cout << "Eroarea este: " << err.what() << "\n"<<"Game Over\n";
-                                delete jocuri[i];
-                                jocuri[i] = new EndlessMaze;
-
-                            }
-                           catch (eroare_GuessTheNumber &err)
+                            }catch (eroare_aplicatie &err)
                             {
-                                std::cout<<"Eroarea este: "<<err.what()<<"\nGame Over";
-                                delete jocuri[i];
-                                jocuri[i] = new GuessTheNumber(10);
-
+                                std::cout<<"Eroarea este: "<<err.what();
+                                jocuri[i] -> restartGame();
                             }
                     }
-
                         }
                 break;
                 case sf::Event::MouseMoved: {
 
-//                    for (auto & casuta : casute)
-//                    {  ///nu merge sa schimb culoarea cand fac hover, nu stiu de ce
-////                        if (casuta->isHovered(window, ev, view))
-////                            casuta->changeBackround();
-//                    }
+                    for ( long long unsigned i = 0; i<casute.size(); i++ ) {
+                        if (casute[i]->isHovered(window, ev, view))
+                            casute[i]->changeBackround();
+                        else
+                            casute[i]->changeBackroundBack();
+                    }
 
 
                 break;}
@@ -173,6 +162,8 @@ Meniu::Meniu() {
 }
 
 Meniu::~Meniu() {
+    this -> deleleCasute();
+    this -> deleteJocuri();
     delete this->window;
 }
 
@@ -205,3 +196,5 @@ void Meniu::deleteJocuri() {
 void Meniu::addJoc(Interfata_joc* joc) {
     jocuri.emplace_back(joc);
 }
+
+

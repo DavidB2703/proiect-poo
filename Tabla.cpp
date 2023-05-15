@@ -4,7 +4,6 @@
 
 #include "Tabla.h"
 #include <cstdlib>
-#include <ctime>
 #include <vector>
 #include <iostream>
 using std::vector;
@@ -13,7 +12,7 @@ using std::vector;
 void Tabla::numarare_mutari() {
     numar_mutari++;
 }
-void Tabla::afisare_mutari() const {
+void Tabla::afisare_mutari() {
     std::cout<<"Numarul de mutari facute este: "<< numar_mutari <<"\n";
 }
 
@@ -114,7 +113,8 @@ void Tabla::generare_tabla() {
     int length=80, width=60;
     matrice.resize(length,vector<int>(width));
     //pattern principal
-    srand(time(nullptr));
+   //
+   //srand(time(nullptr));
     int x_start=rand()%30, y_start=rand()%40, x_end=rand()%30, y_end=rand()%40;
     initializare_jucator(x_start,y_start);
     matrice[y_start][x_start]=2;

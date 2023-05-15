@@ -53,21 +53,22 @@ void EndlessMaze::pollEvents() {
             case sf:: Event:: KeyPressed:
             {   int var=0;
                 if( this-> ev.key.code == sf::Keyboard::Escape )
-                    this->window->close(), Tabla::afisare_nr_table(), tabla.afisare_mutari();
+                    this->window->close(), Tabla::afisare_nr_table(), Tabla::afisare_mutari();
                 if ( this-> ev.key.code == sf::Keyboard::W )
-                    tabla.move_jucator('W',var), tabla.numarare_mutari(), tabla.verificare_mutari();
+                    tabla.move_jucator('W',var), Tabla::numarare_mutari(), tabla.verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::A )
-                    tabla.move_jucator('A',var), tabla.numarare_mutari(), tabla.verificare_mutari();
+                    tabla.move_jucator('A',var), Tabla::numarare_mutari(), tabla.verificare_mutari();
                 else if ( this-> ev.key.code == sf::Keyboard::S )
-                    tabla.move_jucator('S',var), tabla.numarare_mutari(), tabla.verificare_mutari();
-                else if ( this-> ev.key.code == sf::Keyboard::D )
-                    tabla.move_jucator('D',var), tabla.numarare_mutari(), tabla.verificare_mutari();
+                    tabla.move_jucator('S',var), Tabla::numarare_mutari(), tabla.verificare_mutari();
+                else if (this->ev.key.code == sf::Keyboard::D) {
+                    tabla.move_jucator('D', var), Tabla::numarare_mutari(), tabla.verificare_mutari();
+                }
                 if(var==1) {
 
+                    Tabla::afisare_mutari();
                     Tabla tabla_noua;
                     Tabla::numarare_table();
-                    tabla.afisare_mutari();
-                    tabla.resetare_mutari();
+                    Tabla::resetare_mutari();
                     tabla = tabla_noua;
 
                 }
@@ -93,6 +94,15 @@ EndlessMaze::~EndlessMaze() {
 ///Accessors
 bool EndlessMaze::running()  {
     return this->window->isOpen();
+}
+
+void EndlessMaze::restartGame() {
+
+    this->window->close();
+    Tabla::resetare_mutari();
+    Tabla tabla1;
+    tabla = tabla1;
+
 }
 
 

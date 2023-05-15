@@ -88,7 +88,7 @@ void GuessTheNumber::initializare_fereastra() {
 
 void GuessTheNumber::restartGame() {
     guesses=0;
-    srand(time(nullptr));
+   // srand(time(nullptr));
     numToGuess = rand() % 100 + 1;
     numGuesses = 0;
     gameOver = false;

@@ -7,7 +7,7 @@
 ///functii private
 void FallingBlocks::draw() {
     this->window->draw(enemy);
-    srand(time(nullptr));
+  //  srand(time(nullptr));
     enemy.move(0.f,float(rand()%5));
 
     sf::FloatRect rectBounds = enemy.getGlobalBounds();
@@ -131,7 +131,8 @@ void FallingBlocks::pollEvents() {
 
 FallingBlocks::FallingBlocks() {
 
-    srand(time(nullptr));
+
+  //srand(time(nullptr));
     numar_inamici = 0;
     this->initializare_variabile();
     this->initializare_inamici();
@@ -148,6 +149,15 @@ bool FallingBlocks::running() {
     if(this->window!= nullptr)
         return this->window->isOpen();
     return false;
+}
+
+void FallingBlocks::restartGame() {
+    delete this->window;
+    FallingBlocks::afisare_inamici();
+
+    numar_inamici = 0;
+    this->initializare_variabile();
+    this->initializare_inamici();
 }
 
 

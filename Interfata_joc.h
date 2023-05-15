@@ -23,6 +23,7 @@ public:
     virtual void pollEvents()=0;
     virtual void initializare_fereastra()=0;
     virtual bool running()=0;
+    virtual void restartGame()=0;
     explicit Interfata_joc() = default;
     virtual ~Interfata_joc()= default;
 };

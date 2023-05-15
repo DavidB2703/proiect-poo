@@ -42,6 +42,7 @@ public:
     void render() override;
     void pollEvents() override;
     void initializare_fereastra() override;
+    void restartGame() override;
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit FallingBlocks();
     ~FallingBlocks() override;

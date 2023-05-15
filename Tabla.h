@@ -27,15 +27,15 @@ private:
     sf::RectangleShape final;
     sf::Event event{};
     static int ct_tabla;
-    int numar_mutari = 0;
+    static int numar_mutari;
     ///Functii private
 public:
     ///Functii publice
-     void numarare_mutari();
-     void afisare_mutari() const;
+     static void numarare_mutari();
+     static void afisare_mutari() ;
     static void numarare_table();
     static void afisare_nr_table();
-    void resetare_mutari();
+    static void resetare_mutari();
     void verificare_mutari() const;
     void move_jucator(char c, int& var);
     void draw(sf::RenderWindow* window);

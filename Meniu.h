@@ -28,11 +28,12 @@ private:
     void initializare_text();
     void initializare_variabile();
     void initializare_fereastra();
+    void deleteJocuri();
+    void deleleCasute();
 public:
     ///Functii publice
     void addCasuta(Casuta_Joc* casuta);
     void addJoc(Interfata_joc* joc);
-    void deleteJocuri();
     void update() ;
     void render() ;
     void pollEvents() ;
