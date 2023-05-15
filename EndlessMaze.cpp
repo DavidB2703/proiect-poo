@@ -95,34 +95,8 @@ bool EndlessMaze::running()  {
     return this->window->isOpen();
 }
 
-void EndlessMaze::closeWindow() {
-    this->window->close();
-}
 
-void EndlessMaze::schimbare_tabla() {
-    Tabla tabla_noua;
-    tabla=tabla_noua;
-}
 
-void EndlessMaze::resetare_mutari() {
-    this->tabla.resetare_mutari();
-}
-
-void EndlessMaze::afisare_table() {
-    tabla.afisare_nr_table();
-}
-
-void EndlessMaze::resetare_numar_labirinturi() {
-    tabla.resetare_contor();
-}
-
-void EndlessMaze::restartGame() {
-    this -> closeWindow();
-    this ->schimbare_tabla();
-    this -> resetare_mutari();
-    this -> afisare_table();
-    this -> resetare_numar_labirinturi();
-}
 
 
 

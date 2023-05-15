@@ -28,17 +28,12 @@ public:
     void render() override;
     void pollEvents() override;
     void initializare_fereastra() override;
-    void closeWindow();
-    void restartGame() ;
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit EndlessMaze();
     ~EndlessMaze();
     ///Accesors
     bool running() override;
-    void resetare_mutari();
-    void afisare_table();
-    void schimbare_tabla();
-    void resetare_numar_labirinturi();
+
 };
 
 #endif //OOP_ENDLESSMAZE_H
