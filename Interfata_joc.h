@@ -18,7 +18,7 @@ class eroare_aplicatie : public std::runtime_error {
 class Interfata_joc {
 
 public:
-    virtual void update()=0;
+    virtual void update(){ this -> pollEvents(); }
     virtual void render()=0;
     virtual void pollEvents()=0;
     virtual void initializare_fereastra()=0;

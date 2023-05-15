@@ -26,11 +26,7 @@ void EndlessMaze::initializare_fereastra() {
 ///Functii Publice
 
 
-void EndlessMaze::update() {
 
-    this -> pollEvents();
-
-}
 
 void EndlessMaze::render() {
 
@@ -118,6 +114,14 @@ void EndlessMaze::afisare_table() {
 
 void EndlessMaze::resetare_numar_labirinturi() {
     tabla.resetare_contor();
+}
+
+void EndlessMaze::restartGame() {
+    this -> closeWindow();
+    this ->schimbare_tabla();
+    this -> resetare_mutari();
+    this -> afisare_table();
+    this -> resetare_numar_labirinturi();
 }
 
 

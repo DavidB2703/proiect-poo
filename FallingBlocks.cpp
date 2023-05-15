@@ -52,10 +52,6 @@ void FallingBlocks::initializare_fereastra() {
 }
 ///functii publice
 
-void FallingBlocks::update() {
-
-    this -> pollEvents();
-}
 
 void FallingBlocks::render() {
     if(this->window!= nullptr)

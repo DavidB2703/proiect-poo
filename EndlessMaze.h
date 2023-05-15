@@ -25,11 +25,11 @@ private:
     void initializare_variabile();
 public:
     ///Functii
-    void update() override;
     void render() override;
     void pollEvents() override;
     void initializare_fereastra() override;
     void closeWindow();
+    void restartGame() ;
     ///Constructori/Deconstructori/Operator=/Operator<<
     explicit EndlessMaze();
     ~EndlessMaze();

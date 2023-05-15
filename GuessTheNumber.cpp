@@ -3,7 +3,7 @@
 //
 
 #include "GuessTheNumber.h"
-#include "limits"
+#include <limits>
 
 [[maybe_unused]] GuessTheNumber::GuessTheNumber(int maxNumGuesses){
     guesses=0;
@@ -26,7 +26,7 @@ void GuessTheNumber::update()
         if (!gameOver) {
 
             std::cout <<"Enter a number between 1 and 100\n" <<"Press '0' to stop playing\n";
-            std::cout<< "Enter your guess: "<<" ";
+            std::cout<< "Enter your guess: ";
 
             int guess;
             std::cin >> guess;
@@ -67,9 +67,9 @@ void GuessTheNumber::update()
 
 }
 
-//void GuessTheNumber::afisare_nr_jocuri() {
-//    std::cout<<"Number of games played: "<< numGamesPlayed<<"\n";
-//}
+void GuessTheNumber::afisare_nr_jocuri() {
+    std::cout<<"Number of games played: "<< numGamesPlayed-2<<"\n";
+}
 
 
 bool GuessTheNumber::running() {

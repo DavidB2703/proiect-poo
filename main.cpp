@@ -18,47 +18,34 @@ int main()
     Casuta_Joc GuessTheNumber("GuessNumber");
 
 
-    std::vector<Casuta_Joc*> casute;
 
-    //ele vor aparea in ordinea in care sunt puse in acest vector
-    casute.emplace_back(&EndlessMaze);
-    casute.emplace_back(&FallingBlocks);
-    casute.emplace_back(&GuessTheNumber);
+    Interfata_joc* joc0;
+    Interfata_joc* joc1;
+    Interfata_joc* joc2;
 
-    //declarea jocurilor, in functie de modul in care am pus casutele
-    std::vector<Interfata_joc*> jocuri;
-    jocuri.resize(casute.size());
-    jocuri[0] = new class EndlessMaze();
-    jocuri[1] = new class FallingBlocks();
-    jocuri[2] = new class GuessTheNumber(10);
+    joc0 = new class EndlessMaze();
+    joc1 = new class FallingBlocks();
+    joc2 = new class GuessTheNumber(10);
 
 
-    //jocul trb sa fie de forma
-    /*\
-     while(joc.running)
-        {
-            joc.update();
-            joc.render();
-       }
-     */
-    float y_scale = 225;
-    for (auto & casuta : casute)
-    {
-        casuta->initializare_variabile(y_scale);
-        y_scale+=120;
-    }
+    Meniu meniu;
 
+    meniu.addCasuta(&EndlessMaze);
+    meniu.addCasuta(&FallingBlocks);
+    meniu.addCasuta(&GuessTheNumber);
+    meniu.initializare_casute();
 
-    Meniu meniu ;
+    meniu.addJoc(joc0);
+    meniu.addJoc(joc1);
+    meniu.addJoc(joc2);
 
     while(meniu.running())
     {
-        meniu.update(casute, jocuri);
-        meniu.render(casute);
+        meniu.update();
+        meniu.render();
     }
 
-    for (auto & joc : jocuri)
-        delete joc;
+    meniu.deleteJocuri();
 
     return 0;
 }

@@ -11,7 +11,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Config.hpp>
-#include "string"
+#include <string>
 class Casuta_Joc {
 private:
     sf::RectangleShape casuta;

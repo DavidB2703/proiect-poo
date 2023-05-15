@@ -39,7 +39,6 @@ public:
     ///Functii
     void numarare_inamici();
     static void afisare_inamici();
-    void update() override;
     void render() override;
     void pollEvents() override;
     void initializare_fereastra() override;
