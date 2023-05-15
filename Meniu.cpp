@@ -137,7 +137,7 @@ void Meniu::pollEvents() {
                 case sf::Event::MouseMoved: {
 
                     for ( long long unsigned i = 0; i<casute.size(); i++ ) {
-                        if (casute[i]->isHovered(window, ev, view))
+                        if (casute[i]->isHovered(window, view))
                             casute[i]->changeBackround();
                         else
                             casute[i]->changeBackroundBack();
