@@ -23,7 +23,7 @@ public:
     explicit Casuta_Joc(std::string text);
     void initializare_variabile(float y_scale);
     bool isClicked(sf::RenderWindow* window, sf::Event event, sf::View view);
-    bool isHovered(sf::RenderWindow* window, sf::Event event, sf::View view);
+    bool isHovered(sf::RenderWindow* window, sf::View view);
     void changeBackround();
     void changeBackroundBack();
     void draw(sf::RenderWindow* window);

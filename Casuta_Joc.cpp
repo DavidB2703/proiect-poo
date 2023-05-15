@@ -39,7 +39,7 @@ bool Casuta_Joc::isClicked(sf::RenderWindow* window, sf::Event event, sf::View v
 
 }
 
-bool Casuta_Joc::isHovered(sf::RenderWindow* window, sf::Event event, sf::View view) {
+bool Casuta_Joc::isHovered(sf::RenderWindow* window, sf::View view) {
     // Get the mouse position relative to the window
     sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
 
