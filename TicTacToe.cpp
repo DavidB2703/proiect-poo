@@ -86,6 +86,6 @@ bool TicTacToe::isBoardFull() const {
     return true;
 }
 
-TicTacToe::TicTacToe() : isRunning(true), currentPlayer('X') {
-    board = std::vector<char>(9, ' ');
+TicTacToe::TicTacToe() : isRunning(true), board(std::vector<char>(9, ' ')), currentPlayer('X'){
+    std::cout<<"TicTacToe started";
 }
