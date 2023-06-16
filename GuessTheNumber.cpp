@@ -9,7 +9,7 @@ public:
     explicit eroare_GuessTheNumber(const std::string& mesaj) :
             eroare_aplicatie( mesaj) {}
 };
-
+const int RAND_MAX = 2147483647;
 template<typename T>
 class GuessTheNumber : public Interfata_joc {
 private:
