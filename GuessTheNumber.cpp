@@ -9,7 +9,7 @@ public:
     explicit eroare_GuessTheNumber(const std::string& mesaj) :
             eroare_aplicatie( mesaj) {}
 };
-const int RAND_MAX = 2147483647;
+const long long MAX = 2147483647;
 template<typename T>
 class GuessTheNumber : public Interfata_joc {
 private:
@@ -46,7 +46,7 @@ GuessTheNumber<T>::GuessTheNumber(int maxNumGuesses) {
     } else if constexpr (std::is_same_v<T, char>) {
         numToGuess = 'a' + rand() % 26;
     } else if constexpr (std::is_same_v<T, float>) {
-        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / RAND_MAX * 100)) / 100;
+        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / MAX * 100)) / 100;
     }
     numGuesses = 0;
     this->maxNumGuesses = maxNumGuesses;
@@ -139,7 +139,7 @@ void GuessTheNumber<T>::restartGame() {
     } else if constexpr (std::is_same_v<T, char>) {
         numToGuess = 'a' + rand() % 26;
     } else if constexpr (std::is_same_v<T, float>) {
-        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / RAND_MAX * 100)) / 100;
+        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / MAX * 100)) / 100;
     }
     numGuesses = 0;
     gameOver = false;
