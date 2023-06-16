@@ -21,7 +21,7 @@ private:
     sf::VideoMode videoMode;
     sf::Event ev{};
     sf::View view;
-    std::vector<Casuta_Joc*> casute;
+     std::vector<Casuta_Joc*> casute;
     std::vector<Interfata_joc*> jocuri;
     static const float sceneHeigh;
     ///Functii private
@@ -30,6 +30,7 @@ private:
     void initializare_fereastra();
     void deleteJocuri();
     void deleleCasute();
+    explicit Meniu();
 public:
     ///Functii publice
     void addCasuta(Casuta_Joc* casuta);
@@ -40,7 +41,9 @@ public:
     void draw();
     void initializare_casute();
     ///constructoti destructori etc
-    explicit Meniu();
+    static Meniu& getInstance();
+    Meniu(const Meniu&) = delete;
+    Meniu& operator=(const Meniu&) = delete;
     ~Meniu();
     bool running() ;
 };

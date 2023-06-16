@@ -1,14 +1,53 @@
-//
-// Created by david on 4/26/2023.
-//
-
-#include "GuessTheNumber.h"
 #include <limits>
+#include "Interfata_joc.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
-[[maybe_unused]] GuessTheNumber::GuessTheNumber(int maxNumGuesses){
-    guesses=0;
+class eroare_GuessTheNumber : public eroare_aplicatie {
+public:
+    explicit eroare_GuessTheNumber(const std::string& mesaj) :
+            eroare_aplicatie( mesaj) {}
+};
+
+template<typename T>
+class GuessTheNumber : public Interfata_joc {
+private:
+    int guesses;
+    T numToGuess;
+    int numGuesses;
+    int maxNumGuesses;
+    bool gameOver;
+    bool stopsign = true;
+    static int numGamesPlayed;
+
+public:
+    explicit GuessTheNumber(int maxNumGuesses);
+    void update() override;
+    void render() override {};
+    void pollEvents() override {};
+    bool running() override;
+    void initializare_fereastra() override;
+    static void afisare_nr_jocuri();
+    void restartGame() override;
+
+    ~GuessTheNumber() override;
+};
+
+template<typename T>
+int GuessTheNumber<T>::numGamesPlayed = 0;
+
+template<typename T>
+GuessTheNumber<T>::GuessTheNumber(int maxNumGuesses) {
+    guesses = 0;
     srand(time(nullptr));
-    numToGuess = rand() % 100 + 1;
+    if constexpr (std::is_same_v<T, int>) {
+        numToGuess = rand() % 100 + 1;
+    } else if constexpr (std::is_same_v<T, char>) {
+        numToGuess = 'a' + rand() % 26;
+    } else if constexpr (std::is_same_v<T, float>) {
+        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / RAND_MAX * 100)) / 100;
+    }
     numGuesses = 0;
     this->maxNumGuesses = maxNumGuesses;
     gameOver = false;
@@ -16,83 +55,94 @@
     this->stopsign = true;
 }
 
-void GuessTheNumber::update()
-    {
-        guesses++;
-        if (!gameOver && numGuesses >= maxNumGuesses) {
-            std::cout << "You ran out of guesses! The number was ";
+template<typename T>
+void GuessTheNumber<T>::update() {
+    guesses++;
+    if (!gameOver && numGuesses >= maxNumGuesses) {
+        std::cout << "You ran out of guesses! The ";
+        if constexpr (std::is_same_v<T, int>) {
+            std::cout << "number was ";
+        } else if constexpr (std::is_same_v<T, char>) {
+            std::cout << "letter was ";
+        } else if constexpr (std::is_same_v<T, float>) {
+            std::cout << "number was ";
+        }
+        std::cout << numToGuess << std::endl;
+        gameOver = true;
+    }
+    if (!gameOver) {
+        std::cout << "Enter ";
+        if constexpr (std::is_same_v<T, int>) {
+            std::cout << "an integer number between 1 and 100";
+        } else if constexpr (std::is_same_v<T, char>) {
+            std::cout << "a character between 'a' and 'z'";
+        } else if constexpr (std::is_same_v<T, float>) {
+            std::cout << "a floating-point number between 0 and 1 with 2 decimal places";
+        }
+        std::cout << "\nPress '0' to stop playing\n";
+        std::cout << "Enter your guess: ";
+
+        T guess;
+        std::cin >> guess;
+
+        if (static_cast<int> (guess) == 0 or guess == '0') {
+            stopsign = false;
+            return;
+        }
+
+        if (guess == numToGuess) {
+            std::cout << "Congratulations! You guessed the ";
+            if constexpr (std::is_same_v<T, int>) {
+                std::cout << "number";
+            } else if constexpr (std::is_same_v<T, char>) {
+                std::cout << "letter";
+            } else if constexpr (std::is_same_v<T, float>) {
+                std::cout << "number";
+            }
+            std::cout << " in " << numGuesses << " tries." << std::endl;
             gameOver = true;
+        } else if (guess < numToGuess) {
+            std::cout << "Too low!" << std::endl;
+        } else {
+            std::cout << "Too high!" << std::endl;
         }
-        if (!gameOver) {
-
-            std::cout <<"Enter a number between 1 and 100\n" <<"Press '0' to stop playing\n";
-            std::cout<< "Enter your guess: ";
-
-            int guess;
-            std::cin >> guess;
-
-            if (std::cin.fail()) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                throw eroare_GuessTheNumber("Trebuie sa introduci un numar");
-            }
-
-            numGuesses++;
-            if (guess != 0)
-            {
-                if (guess == numToGuess) {
-                    std::cout << "Congratulations! You guessed the number in " << numGuesses << " tries." << std::endl;
-                    gameOver = true;
-                } else if (guess < numToGuess) {
-                    if (guess < 0)
-                        throw eroare_GuessTheNumber("Numarul este intre 0 si 100, nu poti introduce numere negative ");
-                    else{ std::cout << "Too low!" << std::endl; }
-                } else {
-                    if (guess > 100)
-                        throw eroare_GuessTheNumber(
-                                "Numarul este intre 0 si 100, nu poti introduce numere mai mare decat 100 ");
-                    else { std::cout << "Too high!" << std::endl; }
-                }
-                stopsign= true;
-            }
-
-            else
-                stopsign = false;
-
-
-        }
-        else{
-            this->restartGame();
-            }
-
+        numGuesses++;
+    } else {
+        this->restartGame();
+    }
 }
 
-void GuessTheNumber::afisare_nr_jocuri() {
-    std::cout<<"Number of games played: "<< numGamesPlayed-2<<"\n";
+template<typename T>
+void GuessTheNumber<T>::afisare_nr_jocuri() {
+    std::cout << "Number of games played: " << numGamesPlayed - 2 << "\n";
 }
 
-
-bool GuessTheNumber::running() {
-    return this -> stopsign;
+template<typename T>
+bool GuessTheNumber<T>::running() {
+    return this->stopsign;
 }
 
-GuessTheNumber::~GuessTheNumber() {
+template<typename T>
+GuessTheNumber<T>::~GuessTheNumber() {}
 
-}
-
-void GuessTheNumber::initializare_fereastra() {
-
+template<typename T>
+void GuessTheNumber<T>::initializare_fereastra() {
     this->restartGame();
-
 }
 
-void GuessTheNumber::restartGame() {
-    guesses=0;
-   // srand(time(nullptr));
-    numToGuess = rand() % 100 + 1;
+template<typename T>
+void GuessTheNumber<T>::restartGame() {
+    guesses = 0;
+    srand(time(nullptr));
+    if constexpr (std::is_same_v<T, int>) {
+        numToGuess = rand() % 100 + 1;
+    } else if constexpr (std::is_same_v<T, char>) {
+        numToGuess = 'a' + rand() % 26;
+    } else if constexpr (std::is_same_v<T, float>) {
+        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / RAND_MAX * 100)) / 100;
+    }
     numGuesses = 0;
     gameOver = false;
     numGamesPlayed++;
     this->stopsign = true;
 }
-

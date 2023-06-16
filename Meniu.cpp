@@ -6,6 +6,11 @@
 #include "Interfata_joc.h"
 #include "GuessTheNumber.h"
 #include "Casuta_Joc.h"
+#include "EndlessMaze.h"
+#include "FallingBlocks.h"
+#include "TicTacToe.h"
+#include "JocFactory.h"
+
 ///functii private
 void Meniu::initializare_text() {
 
@@ -15,8 +20,8 @@ void Meniu::initializare_text() {
     titlu.setCharacterSize(24);
     titlu.setPosition(300, 100);
     titlu.setFillColor(sf::Color::White);
-
 }
+
 void Meniu::initializare_variabile() {
 
     this->window = nullptr;
@@ -104,7 +109,7 @@ void Meniu::pollEvents() {
 
                             //start jocuri[i]
                             //game loop
-
+                            jocuri[i] = JocFactory::creazaJoc(casute[i]->getTipJoc());
                             jocuri[i] -> initializare_fereastra();
 
                             try {
@@ -115,14 +120,14 @@ void Meniu::pollEvents() {
                                      }
                                 std::cout<<"Game Over\n";
 
-                            auto* guessTheNumber = dynamic_cast<GuessTheNumber*> (jocuri[i]);
+                            auto* guessTheNumber = dynamic_cast<GuessTheNumber<int>*> (jocuri[i]);
                             if (guessTheNumber != nullptr)
                             {
                                 std::cout<<"Do you want to see the number of games played?\n Yes/No\n";
                                 std::string answer;
                                 std::cin>>answer;
                                 if ( answer == "YES" or answer == "Yes" or answer == "yes" or answer == "1" )
-                                    GuessTheNumber::afisare_nr_jocuri();
+                                    GuessTheNumber<int>::afisare_nr_jocuri();
                                 std::cout<<"You may go back to the main menu";
                             }
 
@@ -190,11 +195,18 @@ void Meniu::initializare_casute() {
 
 void Meniu::deleteJocuri() {
     for (auto & joc : jocuri)
-        delete joc;
+        if (joc != nullptr)
+            delete joc;
+
 }
 
 void Meniu::addJoc(Interfata_joc* joc) {
     jocuri.emplace_back(joc);
 }
 
+Meniu &Meniu::getInstance() {
 
+    static Meniu instance;
+    return instance;
+
+}

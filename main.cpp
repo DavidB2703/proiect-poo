@@ -1,15 +1,16 @@
 #include "Meniu.h"
 #include "Tabla.h"
-#include "EndlessMaze.h"
 #include "FallingBlocks.h"
 #include "GuessTheNumber.h"
 #include "Casuta_Joc.h"
 #include "TicTacToe.h"
 int Tabla::ct_tabla=0;
 int FallingBlocks:: numar_inamici=0;
-int GuessTheNumber::numGamesPlayed = 0;
 float Casuta_Joc::x_scale = 300;
 float const Meniu::sceneHeigh = 900.f;
+
+
+
 int Tabla::numar_mutari=0;
 int main()
 {
@@ -20,18 +21,13 @@ int main()
     auto* GuessTheNumber = new Casuta_Joc("GuessNumber");
     auto* TicTacToe = new Casuta_Joc("TicTacToe");
 
-    Interfata_joc* joc0;
-    Interfata_joc* joc1;
-    Interfata_joc* joc2;
-    Interfata_joc* joc3;
+    Interfata_joc* joc0 = nullptr;
+    Interfata_joc* joc1 = nullptr;
+    Interfata_joc* joc2 = nullptr;
+    Interfata_joc* joc3 = nullptr;
 
-    joc0 = new class EndlessMaze();
-    joc1 = new class FallingBlocks();
-    joc2 = new class GuessTheNumber(10);
-    joc3 = new class TicTacToe();
 
-    Meniu meniu;
-
+    Meniu& meniu = Meniu::getInstance();
     meniu.addCasuta(EndlessMaze);
     meniu.addCasuta(FallingBlocks);
     meniu.addCasuta(GuessTheNumber);

@@ -68,3 +68,7 @@ void Casuta_Joc::draw(sf::RenderWindow *window) {
 void Casuta_Joc::changeBackroundBack() {
     this -> casuta.setFillColor(sf::Color::Red);
 }
+
+std::string Casuta_Joc::getTipJoc() {
+    return this -> text;
+}
