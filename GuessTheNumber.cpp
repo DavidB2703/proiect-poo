@@ -9,7 +9,7 @@ public:
     explicit eroare_GuessTheNumber(const std::string& mesaj) :
             eroare_aplicatie( mesaj) {}
 };
-const long long MAX = 2147483647;
+const float MAX = 2147483647;
 template<typename T>
 class GuessTheNumber : public Interfata_joc {
 private:
@@ -46,7 +46,9 @@ GuessTheNumber<T>::GuessTheNumber(int maxNumGuesses) {
     } else if constexpr (std::is_same_v<T, char>) {
         numToGuess = 'a' + rand() % 26;
     } else if constexpr (std::is_same_v<T, float>) {
-        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / MAX * 100)) / 100;
+        int randomNumber = std::rand() % 100; // Generarea unui număr întreg între 0 și 99
+        double randomReal = static_cast<double>(randomNumber) / 100.0; // Transformarea într-un număr real cu 2 zecimale
+        numToGuess = randomReal;
     }
     numGuesses = 0;
     this->maxNumGuesses = maxNumGuesses;
@@ -77,7 +79,7 @@ void GuessTheNumber<T>::update() {
         } else if constexpr (std::is_same_v<T, char>) {
             std::cout << "a character between 'a' and 'z'";
         } else if constexpr (std::is_same_v<T, float>) {
-            std::cout << "a floating-point number between 0 and 1 with 2 decimal places";
+            std::cout << "a floating-point number between 0 and 1 with 2 decimal places ";
         }
         std::cout << "\nPress '0' to stop playing\n";
         std::cout << "Enter your guess: ";
@@ -85,7 +87,7 @@ void GuessTheNumber<T>::update() {
         T guess;
         std::cin >> guess;
 
-        if (static_cast<int> (guess) == 0 or guess == '0') {
+        if (guess == 0 or guess == '0') {
             stopsign = false;
             return;
         }
@@ -139,7 +141,10 @@ void GuessTheNumber<T>::restartGame() {
     } else if constexpr (std::is_same_v<T, char>) {
         numToGuess = 'a' + rand() % 26;
     } else if constexpr (std::is_same_v<T, float>) {
-        numToGuess = static_cast<float>(static_cast<int>(static_cast<float>(rand()) / MAX * 100)) / 100;
+        //float with 2 zecimal places
+        int randomNumber = std::rand() % 100; // Generarea unui număr întreg între 0 și 99
+        double randomReal = static_cast<double>(randomNumber) / 100.0; // Transformarea într-un număr real cu 2 zecimale
+        numToGuess = randomReal;
     }
     numGuesses = 0;
     gameOver = false;
