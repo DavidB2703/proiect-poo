@@ -9,7 +9,7 @@ public:
     explicit eroare_GuessTheNumber(const std::string& mesaj) :
             eroare_aplicatie( mesaj) {}
 };
-const float MAX = 2147483647;
+const float MAX = 2147483647.f;
 template<typename T>
 class GuessTheNumber : public Interfata_joc {
 private:
